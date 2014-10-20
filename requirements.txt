@@ -1,5 +1,6 @@
-pyelasticsearch==0.3.1
+pyelasticsearch==0.3
 mock==0.8.0
-dateutil==2.1
+python-dateutil==2.2
+more_itertools
 ***REMOVED***
 
