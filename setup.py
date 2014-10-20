@@ -31,6 +31,5 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Libraries',
         ],
-    keywords=['voter', 'match', 'registration'],
-    **extra_setup
+    keywords=['voter', 'match', 'registration']
 )
