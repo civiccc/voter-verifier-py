@@ -2,6 +2,7 @@ from flask import Flask, request
 from functools import wraps
 import json
 from jsonschema import Draft4Validator
+import os
 
 ***REMOVED***
 
@@ -79,5 +80,6 @@ def search(valid_api_params):
     return str(res)
 
 if __name__ == '__main__':
-    app.debug = True
+    app.debug = os.environ.get('FLASK_ENV', 'development') == 'development'
+
     app.run(host='0.0.0.0')
