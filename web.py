@@ -81,6 +81,21 @@ def search(params):
 
     return str(match_many(**params['user']))
 
+
+@app.route('/health', methods=['GET'])
+def health():
+    """
+    Does a simple health-check of this service's ability to do real work.
+    """
+
+    status = es_client.health(wait_for_status='yellow')['status']
+
+    if status == 'yellow' or status == 'green':
+        return 'OK'
+    else:
+        return 'ERROR Cluster status: {0}'.format(status), 503
+
+
 if __name__ == '__main__':
     app.debug = os.environ.get('FLASK_ENV', 'development') == 'development'
 
