@@ -1,7 +1,8 @@
+from datetime import datetime
 from flask import Flask, request
 from functools import wraps
-import json
 from jsonschema import Draft4Validator
+import json
 import os
 
 ***REMOVED***
@@ -70,14 +71,15 @@ def find_voter(id):
 
 @app.route('/v1/voters/search', methods=['POST'])
 @validate_api_request
-def search(valid_api_params):
+def search(params):
     """
     Match a chunk of user-inputted information (name, address, dob, etc.) to an
     entry in a voter roll.
     """
-    res = match_one(**valid_api_params['user'])
+    if 'dob' in params['user']:
+        params['user']['dob'] = datetime.strptime(params['user']['dob'], "%Y-%m-%d")
 
-    return str(res)
+    return str(match_many(**params['user']))
 
 if __name__ == '__main__':
     app.debug = os.environ.get('FLASK_ENV', 'development') == 'development'
