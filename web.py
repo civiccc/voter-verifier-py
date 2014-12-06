@@ -83,17 +83,27 @@ def search(params):
 
 
 @app.route('/health', methods=['GET'])
-def health():
+@app.route('/health/<kind>', methods=['GET'])
+def health(kind=None):
     """
     Does a simple health-check of this service's ability to do real work.
     """
 
     status = es_client.health(wait_for_status='yellow')['status']
-
     if status == 'yellow' or status == 'green':
-        return 'OK'
+        es_status = 'OK'
+        code = 200
     else:
-        return 'ERROR Cluster status: {0}'.format(status), 503
+        es_status = 'ERROR Cluster status: {0}'.format(status)
+        code = 503
+
+    if kind == 'status':
+        return json.dumps({
+            'elasticsearch': es_status,
+            'revision': open('REVISION').read().strip()
+        }), code
+    else:
+        return es_status, code
 
 
 if __name__ == '__main__':
