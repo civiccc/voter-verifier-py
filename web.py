@@ -38,11 +38,10 @@ def validate_api_request(response_continuation):
         if not errors:
             return response_continuation(params)
 
-        return json.dumps([
-            {
+        return json.dumps({"errors": [{
                 "message": error.message,
                 "context": ".".join(error.absolute_path)
-            } for error in errors]), 422
+            } for error in errors]}), 422
 
     return with_validation
 
@@ -79,7 +78,7 @@ def search(params):
     if 'dob' in params['user']:
         params['user']['dob'] = datetime.strptime(params['user']['dob'], "%Y-%m-%d")
 
-    return str(match_many(**params['user']))
+    return json.dumps({'data': match_many(**params['user'])})
 
 
 @app.route('/health', methods=['GET'])
