@@ -13,7 +13,7 @@ deploy: build
 	( \
 		if [ "x$$DEPLOY_CONFIRM" = "xy" ]; then \
 			docker push $(REGISTRY)/$(NAME); \
-			./deploy $(REGISTRY)/$(NAME):$(VERSION); \
+			./bin/deploy $(REGISTRY)/$(NAME):$(VERSION); \
 		fi; \
 	)
 
