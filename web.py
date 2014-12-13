@@ -6,6 +6,7 @@ import json
 import os
 
 ***REMOVED***
+***REMOVED***
 
 app = Flask(__name__)
 validator = None
@@ -88,8 +89,8 @@ def health(kind=None):
     Does a simple health-check of this service's ability to do real work.
     """
 
-    status = es_client.health(wait_for_status='yellow')['status']
-    if status == 'yellow' or status == 'green':
+    status = es_client.status(INDEX)
+    if status['indices'][INDEX]['docs']['num_docs'] > 0:
         es_status = 'OK'
         code = 200
     else:
