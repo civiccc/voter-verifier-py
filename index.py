@@ -66,7 +66,7 @@ if __name__ == '__main__':
                 maxval=len(voters)).start()
 
             print "Indexing {0} voters...".format(len(voters))
-            for i in index_voters(INDEX, voters, es_client, should_delete=True):
+            for i in index_voters(INDEX, voters, es_client):
                 progress.update(i)
 
             voters = []

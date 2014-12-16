@@ -21,3 +21,20 @@ In ``indexing.INDEX_SETTINGS``, the ``number_of_replicas`` is presently 0. This
 is an artifact of our gradual spin-down after the election. For production,
 this was 1 to avoid downtime in the event that we lost a node and to provide
 more parallelization.
+
+
+Indexing
+==========
+Here's the command I ran to kick off the indexing:
+
+```bash
+  export TARGETSMART_PASSWORD=[foobar] # note the leading space, it prevents history
+docker run -ti -v /etc/yum.repos.d/epel.repo:/etc/yum.repos.d/epel.repo \
+***REMOVED***
+    -e TARGETSMART_PASSWORD=$TARGETSMART_PASSWORD \
+***REMOVED***
+        /bin/bash -c "yum install --enablerepo=epel \
+                                  -y gzip pv wget &&
+                      source env/bin/activate &&
+                      ./index_all.sh"
+```
