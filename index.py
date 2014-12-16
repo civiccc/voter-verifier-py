@@ -45,9 +45,8 @@ es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
 
 
 if __name__ == '__main__':
-    total_records = int(sys.argv[1])
-
     sys.stderr.write("Loading data...\n")
+    is_first_indexing = True
 
     headers = sys.stdin.readline().strip().split("\t")
     reader = csv.DictReader(sys.stdin, delimiter="\t", fieldnames=headers)
@@ -66,7 +65,8 @@ if __name__ == '__main__':
                 maxval=len(voters)).start()
 
             print "Indexing {0} voters...".format(len(voters))
-            for i in index_voters(INDEX, voters, es_client):
+            for i in index_voters(INDEX, voters, es_client, should_delete=is_first_indexing):
                 progress.update(i)
 
             voters = []
+            is_first_indexing = False
