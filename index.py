@@ -43,7 +43,7 @@ def index_records(voters):
         Counter(), Percentage(), Bar(marker=RotatingMarker()), ETA()],
         maxval=len(voters)).start()
 
-    print "Indexing {0} voters...".format(len(voters))
+    sys.stderr.write("Indexing {0} voters...\n".format(len(voters)))
     for i in index_voters(INDEX, voters, es_client):
         progress.update(i)
 
@@ -53,13 +53,14 @@ if __name__ == '__main__':
 
     sys.stderr.write("Loading data...\n")
 
-    headers = sys.stdin.readline().strip().split("\t")
-    header_map = {header: i for i, header in enumerate(headers)}
-
     voters = []
     for i, row in enumerate(sys.stdin):
+        row = row.split("\t")
+
         if row[0] == 'voterbase_id':
             sys.stderr.write("Found header row.\n")
+            headers = row
+            header_map = {header: i for i, header in enumerate(headers)}
             continue
 
 ***REMOVED***
