@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
 ***REMOVED***
 
-        if len(voters) >= 100000:
+        if len(voters) >= 1000000:
             index_records(voters)
             voters = []
 

@@ -79,7 +79,10 @@ def search(params):
     if 'dob' in params['user']:
         params['user']['dob'] = datetime.strptime(params['user']['dob'], "%Y-%m-%d")
 
-    return json.dumps({'data': match_many(**params['user'])})
+    matches = match_many(**params['user']),
+    resp = json.dumps({'data': matches}, sort_keys=True, indent=4, separators=(',', ': '))
+
+    return resp, 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/health', methods=['GET'])
@@ -101,7 +104,7 @@ def health(kind=None):
         return json.dumps({
             'elasticsearch': es_status,
             'revision': open('REVISION').read().strip()
-        }), code
+        }), code, {'Content-Type': 'application/json'}
     else:
         return es_status, code
 
