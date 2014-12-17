@@ -1,4 +1,3 @@
-import csv
 import sys
 from pyelasticsearch import ElasticSearch
 from progressbar import ProgressBar, Percentage, Bar, ETA, RotatingMarker, Counter
@@ -12,15 +11,10 @@ es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
 
 
 ***REMOVED***
-    private_row = row
+    dob = row[header_map['vb.vf_dob']] or "{0:>04}0000".format(row[header_map['vb.vf_yob']] or 0)
 
-    if not private_row:
-        print 'WARN: Missing private row for voterbase_id: ' + row['voterbase_id']
-        return {}
-
-***REMOVED***
     return {
-        'id': row['voterbase_id'],
+        'id': row[header_map['voterbase_id']],
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
@@ -40,33 +34,38 @@ es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
         'dob_day': int(dob[6:8]) or None,  # Day of birth
         # 'A'=Active, 'I'=Inactive, 'P'=Purged, 'D'=Deleted
         # TODO[tdooner]: Look for a way to get the other statuses in there
-        'status_flag': 'A' if row['vb.vf_voter_status'] == 'Active' else 'I'
+        'status_flag': 'A' if row[header_map['vb.vf_voter_status']] == 'Active' else 'I'
     }
 
 
+def index_records(voters):
+    progress = ProgressBar(widgets=[
+        Counter(), Percentage(), Bar(marker=RotatingMarker()), ETA()],
+        maxval=len(voters)).start()
+
+    print "Indexing {0} voters...".format(len(voters))
+    for i in index_voters(INDEX, voters, es_client):
+        progress.update(i)
+
+
 if __name__ == '__main__':
+    ensure_mapping_exists(INDEX, es_client)
+
     sys.stderr.write("Loading data...\n")
-    is_first_indexing = True
 
     headers = sys.stdin.readline().strip().split("\t")
-    reader = csv.DictReader(sys.stdin, delimiter="\t", fieldnames=headers)
-    voters = []
+    header_map = {header: i for i, header in enumerate(headers)}
 
-    for i, row in enumerate(reader):
-        if all(row[x] == x for x in row):
+    voters = []
+    for i, row in enumerate(sys.stdin):
+        if row[0] == 'voterbase_id':
             sys.stderr.write("Found header row.\n")
             continue
 
 ***REMOVED***
 
         if len(voters) >= 100000:
-            progress = ProgressBar(widgets=[
-                Counter(), Percentage(), Bar(marker=RotatingMarker()), ETA()],
-                maxval=len(voters)).start()
-
-            print "Indexing {0} voters...".format(len(voters))
-            for i in index_voters(INDEX, voters, es_client, should_delete=is_first_indexing):
-                progress.update(i)
-
+            index_records(voters)
             voters = []
-            is_first_indexing = False
+
+    index_records(voters)
