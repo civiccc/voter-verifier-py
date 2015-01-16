@@ -1,0 +1,30 @@
+CommitMsg:
+  GerritChangeId:
+    enabled: true
+
+  HardTabs:
+    enabled: true
+
+
+PreCommit:
+  ALL:
+    exclude:
+      - 'vendor/**/*'
+
+  AuthorEmail:
+    enabled: true
+    description: 'Checking author email for Brigade domain'
+***REMOVED***
+
+  HardTabs:
+    enabled: true
+    description: 'Checking for hard tabs'
+
+  JsonSyntax:
+    enabled: true
+
+  MergeConflicts:
+    enabled: true
+
+  TrailingWhitespace:
+    enabled: true

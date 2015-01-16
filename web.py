@@ -7,6 +7,7 @@ import os
 
 ***REMOVED***
 ***REMOVED***
+***REMOVED***
 
 app = Flask(__name__)
 validator = None
@@ -50,12 +51,50 @@ def validate_api_request(response_continuation):
 @app.route('/')
 def home():
     return """
-    <form method='POST' action='/match'>
+    <form id="test-form" method='POST' action='/match'>
       ***REMOVED***
       ***REMOVED***
-      <input name='dob' value='1991-01-01' placeholder='DOB (yyyy-mm-dd)' />
+      <input name='dob' value='1991-01-01' placeholder='DOB (yyyy-mm-dd)' /><br />
+      <input name='state' value='OH' placeholder='State (OH)' />
       <input type='submit' />
     </form>
+    <hr />
+
+    <div id="result">No results.</div>
+
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript">
+      $("#test-form").on('submit', function(e) {
+        e.preventDefault();
+        var query = {
+          "first_name": $("input[name=first_name]").val(),
+          "last_name": $("input[name=last_name]").val(),
+          "dob": $("input[name=dob]").val()
+        };
+
+        var state = $("input[name=state]").val();
+        if (state.length) {
+          query["state"] = state;
+        }
+
+        $.ajax({
+          "url": "/v1/voters/search",
+          "type": "POST",
+          "contentType": "application/json",
+          "data": JSON.stringify({
+            "user": query
+          }),
+          "success": function(resp, status, xhr) {
+            $("#result").html("<ul></ul>");
+
+            var results = resp["data"];
+            for (var i in results) {
+              $("#result ul").append("<li>" + JSON.stringify(results[i]) + "</li>");
+            }
+          }
+        });
+      });
+    </script>
     """
 
 
@@ -77,9 +116,10 @@ def search(params):
     entry in a voter roll.
     """
     if 'dob' in params['user']:
-        params['user']['dob'] = datetime.strptime(params['user']['dob'], "%Y-%m-%d")
+        year, month, day = params['user']['dob'].split("-")
+        params['user']['dob'] = NullableDate(year=int(year), month=int(month), day=int(day))
 
-    matches = match_many(**params['user']),
+    matches = match_many(**params['user'])
     resp = json.dumps({'data': matches}, sort_keys=True, indent=4, separators=(',', ': '))
 
     return resp, 200, {'Content-Type': 'application/json'}
