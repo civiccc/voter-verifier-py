@@ -55,7 +55,7 @@ if __name__ == '__main__':
 
     voters = []
     for i, row in enumerate(sys.stdin):
-        row = row.split("\t")
+        row = row.decode("utf-8-sig").split("\t")
 
         if row[0] == 'voterbase_id':
             sys.stderr.write("Found header row.\n")

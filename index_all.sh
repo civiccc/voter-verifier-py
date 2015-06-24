@@ -11,8 +11,6 @@ echo "... ${total} records" >&2
 for FILE in $(python list_files.py); do
   echo "Processing file $(basename $FILE)..." >&2
   wget \
-    --user=brigade_media \
-    --password=$TARGETSMART_PASSWORD \
     --timeout 900 \
     --output-document - \
     --quiet \

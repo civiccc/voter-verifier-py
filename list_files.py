@@ -1,15 +1,14 @@
-import os
-from ftplib import FTP_TLS
+# Make sure you have aws env variables (AWS_ACCESS_KEY_ID and
+# AWS_SECRET_ACCESS_KEY)
+import boto
 
+FOLDER_NAME = '20150608analysis/'
 
 if __name__ == '__main__':
-    username = 'brigade_media'
-    password = os.environ['TARGETSMART_PASSWORD']
+    conn = boto.connect_s3()
+
 ***REMOVED***
+        # Print all files except for the folder itself
+        if key.name == FOLDER_NAME: continue
 
-    ftp = FTP_TLS(hostname, username, password)
-    base = '/outgoing/analysis20141211/brigade_media_analytic/'
-    ftp.cwd(base)
-
-    for f in ftp.nlst():
-        print("ftp://" + hostname + base + f)
+        print key.generate_url(3600, query_auth=True)
