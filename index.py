@@ -29,6 +29,7 @@ es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
 ***REMOVED***
         # First 5 digits of residence ZIP code
 ***REMOVED***
+        'county': row[header_map['vb.vf_county_name']],
         'dob_year': int(dob[0:4]) or None,  # Year of birth
         'dob_month': int(dob[4:6]) or None,  # Month of birth
         'dob_day': int(dob[6:8]) or None,  # Day of birth
