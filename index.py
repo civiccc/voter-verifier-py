@@ -34,7 +34,9 @@ es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
         'dob_day': int(dob[6:8]) or None,  # Day of birth
         # 'A'=Active, 'I'=Inactive, 'P'=Purged, 'D'=Deleted
         # TODO[tdooner]: Look for a way to get the other statuses in there
-        'status_flag': 'A' if row[header_map['vb.vf_voter_status']] == 'Active' else 'I'
+        'status_flag': 'A' if row[header_map['vb.vf_voter_status']] == 'Active' else 'I',
+***REMOVED***
+        'registration_date': row[header_map['vb.vf_registration_date']] or None
     }
 
 
