@@ -57,7 +57,7 @@ if __name__ == '__main__':
     sys.stderr.write("Loading data...\n")
 
     voters = []
-    for i, row in enumerate(sys.stdin):
+    for row in sys.stdin:
         row = row.decode("utf-8-sig").split("\t")
 
         if row[0] == 'voterbase_id':
