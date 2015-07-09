@@ -55,6 +55,7 @@ def home():
       ***REMOVED***
       ***REMOVED***
       <input name='dob' value='1991-01-01' placeholder='DOB (yyyy-mm-dd)' /><br />
+      <input name='city' value='Euclid' placeholder='City (Euclid)' />
       <input name='state' value='OH' placeholder='State (OH)' />
       <input type='submit' />
     </form>
@@ -71,6 +72,11 @@ def home():
           "last_name": $("input[name=last_name]").val(),
           "dob": $("input[name=dob]").val()
         };
+
+        var city = $("input[name=city]").val();
+        if (city.length) {
+          query["city"] = city;
+        }
 
         var state = $("input[name=state]").val();
         if (state.length) {
