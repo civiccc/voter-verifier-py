@@ -8,6 +8,7 @@ import os
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
+***REMOVED***
 
 app = Flask(__name__)
 validator = None
@@ -55,7 +56,7 @@ def home():
       ***REMOVED***
       ***REMOVED***
       <input name='dob' value='1991-01-01' placeholder='DOB (yyyy-mm-dd)' /><br />
-      <input name='city' value='Euclid' placeholder='City (Euclid)' />
+      ***REMOVED***
       <input name='state' value='OH' placeholder='State (OH)' />
       <input type='submit' />
     </form>
@@ -103,6 +104,46 @@ def home():
     </script>
     """
 
+@app.route('/match_random_address')
+def match_random_address():
+    return """
+    <form id="test-form" method='POST' action='/match'>
+      <input name='state' value='MI' placeholder='State (MI)' /><br />
+      <input name='seed' value='0' placeholder='seed value' />
+      <input type='submit' />
+    </form>
+    <hr />
+
+    <div id="result">No results.</div>
+
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript">
+      $("#test-form").on('submit', function(e) {
+        e.preventDefault();
+        var query = {
+          "state": $("input[name=state]").val(),
+          "seed": parseInt($("input[name=seed]").val())
+        };
+
+        $.ajax({
+          "url": "/v1/voters/random_address",
+          "type": "POST",
+          "contentType": "application/json",
+          "data": JSON.stringify({
+            "address": query
+          }),
+          "success": function(resp, status, xhr) {
+            $("#result").html("<ul></ul>");
+
+            var results = resp["data"];
+            for (var i in results) {
+              $("#result ul").append("<li>" + JSON.stringify(results[i]) + "</li>");
+            }
+          }
+        });
+      });
+    </script>
+    """
 
 @app.route('/v1/voters/<id>', methods=['GET'])
 def find_voter(id):
@@ -130,6 +171,18 @@ def search(params):
 
     return resp, 200, {'Content-Type': 'application/json'}
 
+@app.route('/v1/voters/random_address', methods=['POST'])
+@validate_api_request
+def random_address(params):
+    """
+    Submit a state to get random addresses in that state
+    """
+
+    address = params['address']
+    matches = match_random_addresses(state=address['state'], seed=address['seed'])
+    resp = json.dumps({'data': matches}, sort_keys=True, indent=4, separators=(',', ': '))
+
+    return resp, 200, {'Content-Type': 'application/json'}
 
 @app.route('/health', methods=['GET'])
 @app.route('/health/<kind>', methods=['GET'])

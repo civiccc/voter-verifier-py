@@ -30,6 +30,17 @@
         }
       },
       "required": ["first_name", "last_name"]
+    },
+    "address": {
+      "description": "Address fields",
+      "type": ["object"],
+      "properties": {
+        "state": {
+          "enum": ["AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"]
+        },
+        "seed": { "type": "integer" }
+      },
+      "required": ["state"]
     }
   },
   "links": [
@@ -55,6 +66,22 @@
       "href": "/v1/voters/{(/definitions/voters/definitions/id)}",
       "rel": "self",
       "title": "get"
+    },
+    {
+      "description": "Find a random address by state",
+      "method": "POST",
+      "href": "/v1/voters/random_address",
+      "title": "random_address",
+      "rel": "matches",
+      "schema": {
+        "properties": {
+          "address": {
+            "$ref": "#/voters/definitions/address"
+          }
+        },
+        "type": ["object"],
+        "required": ["address"]
+      }
     }
   ]
 }
