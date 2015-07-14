@@ -38,3 +38,8 @@ docker run -ti -v /etc/yum.repos.d/epel.repo:/etc/yum.repos.d/epel.repo \
                       source env/bin/activate &&
                       ./index_all.sh"
 ```
+
+JSON Schema
+==========
+To generate a new version of the schema.json file:
+prmd combine --meta schema/meta.json schema/voters.json > schema.json
