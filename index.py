@@ -22,7 +22,10 @@ es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
         # Not provided by votersmart
         'suffix': None,
         # One-line residence street address
-***REMOVED***
+        'address': row[header_map['vb.vf_reg_cass_address_full']],
+        # The street number part of the address, which the client will remove
+        # for anonymizing matches
+        'address_street_number': row[header_map['vb.vf_reg_cass_street_num']],
         # Residence city
 ***REMOVED***
         # Residence state
