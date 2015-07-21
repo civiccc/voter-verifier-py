@@ -27,11 +27,11 @@ es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
         # for anonymizing matches
         'address_street_number': row[header_map['vb.vf_reg_cass_street_num']],
         # Residence city
-***REMOVED***
+        'city': row[header_map['vb.vf_reg_cass_city']],
         # Residence state
 ***REMOVED***
         # First 5 digits of residence ZIP code
-***REMOVED***
+        'zip_code': row[header_map['vb.vf_reg_cass_zip']],
         'county': row[header_map['vb.vf_county_name']],
         'dob_year': int(dob[0:4]) or None,  # Year of birth
         'dob_month': int(dob[4:6]) or None,  # Month of birth
