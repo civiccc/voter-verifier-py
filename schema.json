@@ -48,6 +48,11 @@
                 "string"
               ]
             },
+            "address_street_number": {
+              "type": [
+                "string"
+              ]
+            },
             "city": {
               "type": [
                 "string"
