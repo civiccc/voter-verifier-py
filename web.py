@@ -146,6 +146,7 @@ def match_random_address():
     """
 
 @app.route('/v1/voters/<id>', methods=['GET'])
+@statsd.timed('verifier.response_time.voters_find_voter', tags=['revision:v1'])
 def find_voter(id):
     """
     Find a voter by voterbase ID.
@@ -156,6 +157,7 @@ def find_voter(id):
 
 
 @app.route('/v1/voters/search', methods=['POST'])
+@statsd.timed('verifier.response_time.voters_search', tags=['revision:v1'])
 @validate_api_request
 def search(params):
     """
@@ -172,6 +174,7 @@ def search(params):
     return resp, 200, {'Content-Type': 'application/json'}
 
 @app.route('/v1/voters/random_address', methods=['POST'])
+@statsd.timed('verifier.response_time.voters_random_address', tags=['revision:v1'])
 @validate_api_request
 def random_address(params):
     """
@@ -186,6 +189,7 @@ def random_address(params):
 
 @app.route('/health', methods=['GET'])
 @app.route('/health/<kind>', methods=['GET'])
+@statsd.timed('verifier.response_time.health')
 def health(kind=None):
     """
     Does a simple health-check of this service's ability to do real work.

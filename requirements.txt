@@ -10,3 +10,4 @@ django
 nose
 https://python-progressbar.googlecode.com/files/progressbar-2.3.tar.gz#egg=progressbar
 boto
+datadog
