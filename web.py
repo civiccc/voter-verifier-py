@@ -2,6 +2,7 @@ from datetime import datetime
 from flask import Flask, request
 from functools import wraps
 from jsonschema import Draft4Validator
+from raven import Client as RavenClient
 import json
 import os
 
@@ -11,6 +12,7 @@ import os
 ***REMOVED***
 
 app = Flask(__name__)
+sentry = RavenClient(SENTRY_DSN)
 validator = None
 
 
@@ -48,6 +50,23 @@ def validate_api_request(response_continuation):
 
     return with_validation
 
+
+"""
+Register an error handler for any exception - we should report them to Sentry!
+
+See: http://flask.pocoo.org/docs/0.10/api/#flask.Flask.errorhandler
+"""
+@app.errorhandler(Exception)
+def handle_error(e):
+    # We don't need to pass `e` into captureException() because sentry calls
+    # `sys.exc_info()` which examines the thread's stack and gets exception
+    # information "from the calling stack frame, or its caller, and so on until
+    # a stack frame is found that is handling an exception."
+    #
+    # See: https://docs.python.org/2/library/sys.html#sys.exc_info
+    #
+    sentry.captureException()
+    return "An exception occurred: %s" % (e,), 500
 
 @app.route('/')
 def home():
