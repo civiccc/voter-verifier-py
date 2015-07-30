@@ -20,10 +20,13 @@ es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
         'zip_code': '90210',
         'county': 'LOS ANGELES',
         'address_street_number': '123',
+        'address_unit_designator': '123',
+        'address_apt_number': 'APT 123',
     }
 
-    We return an 'address_street_number' for use in anonymizing addresses during
-    the verification flow.
+    We return 'address_street_number', 'address_unit_designator', and
+    'address_apt_number' for use in anonymizing addresses during the
+    verification flow.
     """
     # TargetSmart provides a couple different addresses that we might want to
     # use:
@@ -67,6 +70,8 @@ es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
         'zip_code': row[header_map['vb.vf_reg_cass_zip']],
         'county': row[header_map['vb.vf_county_name']],
         'address_street_number': row[header_map['vb.vf_reg_cass_street_num']],
+        'address_unit_designator': row[header_map['vb.vf_reg_cass_unit_designator']],
+        'address_apt_number': row[header_map['vb.vf_reg_cass_apt_num']],
     }
 
 

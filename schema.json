@@ -53,6 +53,16 @@
                 "string"
               ]
             },
+            "address_unit_designator": {
+              "type": [
+                "string"
+              ]
+            },
+            "address_apt_number": {
+              "type": [
+                "string"
+              ]
+            },
             "city": {
               "type": [
                 "string"
