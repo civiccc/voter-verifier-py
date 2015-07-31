@@ -14,14 +14,14 @@ es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
     Extract address fields from the row.
 
     {
-        'address': '123 S. FAKE ST.',
+        'address': '123 S. FAKE ST. APT 456',
         'city': 'BEVERLY HILLS',
         'st': 'CA',
         'zip_code': '90210',
         'county': 'LOS ANGELES',
         'address_street_number': '123',
-        'address_unit_designator': '123',
-        'address_apt_number': 'APT 123',
+        'address_unit_designator': 'APT',
+        'address_apt_number': '456',
     }
 
     We return 'address_street_number', 'address_unit_designator', and
