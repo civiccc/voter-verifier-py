@@ -12,3 +12,4 @@ https://python-progressbar.googlecode.com/files/progressbar-2.3.tar.gz#egg=progr
 boto
 datadog
 raven
+requests
