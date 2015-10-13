@@ -1,4 +1,5 @@
 import sys
+import time
 from pyelasticsearch import ElasticSearch
 from progressbar import ProgressBar, Percentage, Bar, ETA, RotatingMarker, Counter
 
@@ -100,18 +101,20 @@ es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
     return data
 
 
-def index_records(voters):
+def index_records(index_name, voters):
     progress = ProgressBar(widgets=[
         Counter(), Percentage(), Bar(marker=RotatingMarker()), ETA()],
         maxval=len(voters)).start()
 
     sys.stderr.write("Indexing {0} voters...\n".format(len(voters)))
-    for i in index_voters(INDEX, voters, es_client):
+    for i in index_voters(index_name, voters, es_client):
         progress.update(i)
 
 
 if __name__ == '__main__':
-    ensure_mapping_exists(INDEX, es_client)
+    tmp_index = INDEX + "_" + time.strftime("%Y%m%d%H%M%S")
+
+    ensure_mapping_exists(tmp_index, es_client, force_delete=True)
 
     sys.stderr.write("Loading data...\n")
 
@@ -128,7 +131,7 @@ if __name__ == '__main__':
 ***REMOVED***
 
         if len(voters) >= 1000000:
-            index_records(voters)
+            index_records(tmp_index, voters)
             voters = []
 
-    index_records(voters)
+    index_records(tmp_index, voters)
