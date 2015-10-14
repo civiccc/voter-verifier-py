@@ -1,3 +1,4 @@
+import os
 import sys
 import time
 from pyelasticsearch import ElasticSearch
@@ -112,11 +113,12 @@ def index_records(index_name, voters):
 
 
 if __name__ == '__main__':
-    tmp_index = INDEX + "_" + time.strftime("%Y%m%d%H%M%S")
+    tmp_index = os.environ.get('VERIFIER_NEW_INDEX_NAME', INDEX + "_" + time.strftime("%Y%m%d%H%M%S"))
 
     ensure_mapping_exists(tmp_index, es_client, force_delete=True)
 
-    sys.stderr.write("Loading data...\n")
+    sys.stderr.write("Loading data into index {0}...\n".format(tmp_index))
+    sys.stderr.write("Set VERIFIER_NEW_INDEX_NAME=[...] to override default index name.\n")
 
     voters = []
     for row in sys.stdin:
