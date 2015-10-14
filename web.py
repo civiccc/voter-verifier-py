@@ -214,8 +214,13 @@ def health(kind=None):
     Does a simple health-check of this service's ability to do real work.
     """
 
-    status = es_client.status(INDEX)
-    if status['indices'][INDEX]['docs']['num_docs'] > 0:
+    status = es_client.status(INDEX)['indices']
+***REMOVED***
+***REMOVED***
+    # endpoint, so we'll just assume that if an index is returned here, it is
+    # the correct one.
+    status = status[status.keys()[0]]
+    if status['docs']['num_docs'] > 0:
         es_status = 'OK'
         code = 200
     else:
