@@ -6,7 +6,9 @@ CMD ["env/bin/gunicorn", "web:app", "-b", "0.0.0.0:3000", "--log-file=-"]
 # Install all the system dependencies
 # Doing this before the "ADD . /app" makes it so that these will be cached
 # between builds.
-RUN yum install -y git python-devel && \
+RUN touch /var/lib/rpm/{.,}* && \
+    yum clean all && \
+    yum install -y git python-devel && \
     yum clean all && \
     easy_install virtualenv && \
     virtualenv env
