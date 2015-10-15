@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+# Usage:
+***REMOVED***
+#
+***REMOVED***
+#
+set -euo pipefail
+
+latest=${1:-"20150908analysis"}
+
+if [ -z "${AWS_ACCESS_KEY_ID}" ]; then
+  echo "Make sure AWS_ACCESS_KEY_ID environment variable is set!"
+***REMOVED***
+  exit 1
+fi
+if [ -z "${AWS_SECRET_ACCESS_KEY}" ]; then
+  echo "Make sure AWS_SECRET_ACCESS_KEY environment variable is set!"
+***REMOVED***
+  exit 1
+fi
+
+# Due to https://issues.apache.org/jira/browse/HADOOP-11621, we cannot simply
+# run:
+***REMOVED***
+# Rather, we must use a different client library to find all filenames and pass
+# them as separate arguments into `hadoop distcp`.
+***REMOVED***
+
+# Note: To keep the filenames predictable across different versions of the
+***REMOVED***
+***REMOVED***
+***REMOVED***
+# data, we will have to manually remove the old version's file from the
+# top level.
+***REMOVED***
+***REMOVED***
+***REMOVED***
+***REMOVED***
+"
