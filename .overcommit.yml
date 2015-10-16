@@ -5,7 +5,6 @@ CommitMsg:
   HardTabs:
     enabled: true
 
-
 PreCommit:
   ALL:
     exclude:
@@ -19,6 +18,8 @@ PreCommit:
   HardTabs:
     enabled: true
     description: 'Checking for hard tabs'
+    exclude:
+      - 'Makefile'
 
   JsonSyntax:
     enabled: true
