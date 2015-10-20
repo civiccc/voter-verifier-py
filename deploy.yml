@@ -23,6 +23,31 @@ default: &default
     APP_DIRECTORY: '/mnt/mesos/sandbox'
     UID: 4060 # pinned in cuisine/data_bags/users/verifier.json
     GID: 4060 # pinned in cuisine/data_bags/users/verifier.json
+    FLASK_ENV: 'production'
+    STATSD_HOST: 'docker-host'
+***REMOVED***
+
+  marathon:
+    verifier-bli: # TODO: Rename this to 'verifier' once it works sufficiently well
+      args: ['./env/bin/gunicorn', 'web:app', '-b', '0.0.0.0:3000', '--log-file=-']
+      mem: 256
+      cpus: 0.2
+      instances: 2
+      healthChecks:
+        - protocol: HTTP
+          path: '/health'
+          maxConsecutiveFailures: 0  # don't auto-kill tasks that fail health check
+      container:
+        type: 'DOCKER'
+        docker:
+          image: '<%= $deploy_variables[:docker_image] %>'
+          network: 'BRIDGE'
+          portMappings:
+            - containerPort: 3000
+              hostPort: 0
+              protocol: 'tcp'
+      uris:
+        - '<%= $deploy_variables[:nexus_url] %>'
 
 ###############################################################################
 # EDGE
@@ -32,6 +57,7 @@ edge:
 
   env:
     <<: *default_env
+***REMOVED***
 
 ###############################################################################
 # STAGING
@@ -41,6 +67,7 @@ staging:
 
   env:
     <<: *default_env
+***REMOVED***
 
 ###############################################################################
 # PRODUCTION
@@ -50,3 +77,4 @@ production:
 
   env:
     <<: *default_env
+***REMOVED***
