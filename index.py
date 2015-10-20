@@ -113,27 +113,24 @@ def index_records(index_name, voters):
 
 
 if __name__ == '__main__':
-    tmp_index = os.environ.get('VERIFIER_NEW_INDEX_NAME', INDEX + "_" + time.strftime("%Y%m%d%H%M%S"))
+    with aliased_index(es_client, INDEX) as index:
+        sys.stderr.write("Loading data into index {0}...\n".format(index))
+        sys.stderr.write("Set VERIFIER_NEW_INDEX_NAME=[...] to override default index name.\n")
 
-    ensure_mapping_exists(tmp_index, es_client, force_delete=True)
+        voters = []
+        for row in sys.stdin:
+            row = row.decode("utf-8-sig").split("\t")
 
-    sys.stderr.write("Loading data into index {0}...\n".format(tmp_index))
-    sys.stderr.write("Set VERIFIER_NEW_INDEX_NAME=[...] to override default index name.\n")
-
-    voters = []
-    for row in sys.stdin:
-        row = row.decode("utf-8-sig").split("\t")
-
-        if row[0] == 'voterbase_id':
-            sys.stderr.write("Found header row.\n")
-            headers = row
-            header_map = {header: i for i, header in enumerate(headers)}
-            continue
+            if row[0] == 'voterbase_id':
+                sys.stderr.write("Found header row.\n")
+                headers = row
+                header_map = {header: i for i, header in enumerate(headers)}
+                continue
 
 ***REMOVED***
 
-        if len(voters) >= 1000000:
-            index_records(tmp_index, voters)
-            voters = []
+            if len(voters) >= 1000000:
+                index_records(index, voters)
+                voters = []
 
-    index_records(tmp_index, voters)
+        index_records(index, voters)
