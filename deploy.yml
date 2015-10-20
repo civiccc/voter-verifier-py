@@ -28,13 +28,15 @@ default: &default
 ***REMOVED***
 
   marathon:
-    verifier-bli: # TODO: Rename this to 'verifier' once it works sufficiently well
+    verifier:
       args: ['./env/bin/gunicorn', 'web:app', '-b', '0.0.0.0:3000', '--log-file=-']
       mem: 256
       cpus: 0.2
       instances: 2
       healthChecks:
         - protocol: HTTP
+          intervalSeconds: 10
+          timeoutSeconds: 10
           path: '/health'
           maxConsecutiveFailures: 0  # don't auto-kill tasks that fail health check
       container:
