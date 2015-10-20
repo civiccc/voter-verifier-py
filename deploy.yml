@@ -51,6 +51,42 @@ default: &default
       uris:
         - '<%= $deploy_variables[:nexus_url] %>'
 
+  chronos:
+    verifier_reindex_all:
+      # the "name" and "environmentVariables" keys are added at deploy-time
+      epsilon: PT60S
+      executor: ''
+      executorFlags: ''
+      retries: 2
+***REMOVED***
+      ownerName: ''
+      async: false
+      cpus: 1.0
+      disk: 256.0
+      mem: 1024.0
+      softError: false
+      dataProcessingJobType: false
+      uris:
+        - '<%= $deploy_variables[:nexus_url] %>'
+      highPriority: false
+      runAsUser: root
+      # TODO: This command should be baked into the Docker image (as its
+      # entrypoint), however a Chronos bug prevents us from using `shell: false`
+      # and simply passing `arguments`. https://github.com/mesos/chronos/issues/567
+      command: '/usr/local/bin/entrypoint'
+      container:
+        type: docker
+        image: '<%= $deploy_variables[:docker_image] %>'
+        network: BRIDGE
+      scheduleTimeZone: UTC
+      # TODO: Pass these arguments into the ./bin/run script. This is blocked
+      # on a Chronos bug which adds the value of the arguments array to the
+      # task ID which fails because slashes are invalid in task IDs.
+      # https://github.com/mesos/chronos/issues/568
+      arguments: ['bash', 'index_all.sh']
+***REMOVED***
+      schedule: R/2015-06-20T00:00:00.000Z/P1M # every month
+
 ###############################################################################
 # EDGE
 ###############################################################################
