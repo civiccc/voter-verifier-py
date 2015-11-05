@@ -25,7 +25,7 @@ default: &default
     GID: 4060 # pinned in cuisine/data_bags/users/verifier.json
     FLASK_ENV: 'production'
     STATSD_HOST: 'docker-host'
-***REMOVED***
+    SENTRY_DSN: 'https://c975cacd7f9148bd94ba4738fc039fb2:50e1b5fd696f444abf83c0984f6effe6@app.getsentry.com/55635'
 
   marathon:
     verifier:
