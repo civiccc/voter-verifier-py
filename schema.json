@@ -218,6 +218,12 @@
             "properties": {
               "user": {
                 "$ref": "#/definitions/voters/definitions/voter"
+              },
+              "ideal_num_matches": {
+                "type": [
+                  "integer"
+                ],
+                "minimum": 0
               }
             },
             "type": [

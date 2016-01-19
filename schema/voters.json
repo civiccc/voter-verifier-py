@@ -57,6 +57,10 @@
         "properties": {
           "user": {
             "$ref": "#/voters/definitions/voter"
+          },
+          "ideal_num_matches": {
+            "type": "integer",
+            "minimum": 0
           }
         },
         "type": ["object"],
