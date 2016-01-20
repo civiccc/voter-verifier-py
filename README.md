@@ -24,6 +24,13 @@ Indexing happens monthly in a Chronos job:
 
 ***REMOVED***
 
+Tests
+==========
+```bash
+docker run --publish 9200:9200 -d elasticsearch:1.7.3 elasticsearch --action.write_consistency=one
+***REMOVED***
+```
+
 JSON Schema
 ==========
 To generate a new version of the schema.json file:
