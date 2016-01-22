@@ -104,6 +104,8 @@ def home():
           query["state"] = state;
         }
 
+        $("#result").html("");
+
         $.ajax({
           "url": "/v1/voters/search",
           "type": "POST",
@@ -112,14 +114,16 @@ def home():
             "user": query,
             "max_matches": parseInt($("input[name=max_matches]").val())
           }),
-          "success": function(resp, status, xhr) {
-            $("#result").html("<ul></ul>");
+        }).done(function(resp, status, xhr) {
+          $("#result").html("<ul></ul>");
 
-            var results = resp["data"];
-            for (var i in results) {
-              $("#result ul").append("<li>" + JSON.stringify(results[i]) + "</li>");
-            }
+          var results = resp["data"];
+          for (var i in results) {
+            $("#result ul").append("<li>" + JSON.stringify(results[i]) + "</li>");
           }
+        }).fail(function(xhr, status, error) {
+          $("#result").html("<b>Error:</b> " + error);
+          $("#result").append(xhr.responseText);
         });
       });
     </script>
@@ -146,21 +150,25 @@ def match_random_address():
           "seed": parseInt($("input[name=seed]").val())
         };
 
+        $("#result").html("");
+
         $.ajax({
           "url": "/v1/voters/random_address",
           "type": "POST",
           "contentType": "application/json",
           "data": JSON.stringify({
             "address": query
-          }),
-          "success": function(resp, status, xhr) {
-            $("#result").html("<ul></ul>");
+          })
+        ).done(function(resp, status, xhr) {
+          $("#result").html("<ul></ul>");
 
-            var results = resp["data"];
-            for (var i in results) {
-              $("#result ul").append("<li>" + JSON.stringify(results[i]) + "</li>");
-            }
+          var results = resp["data"];
+          for (var i in results) {
+            $("#result ul").append("<li>" + JSON.stringify(results[i]) + "</li>");
           }
+        }).fail(function(xhr, status, error) {
+          $("#result").html("<b>Error:</b> " + error);
+          $("#result").append(xhr.responseText);
         });
       });
     </script>
