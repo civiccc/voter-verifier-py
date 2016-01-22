@@ -219,7 +219,7 @@
               "user": {
                 "$ref": "#/definitions/voters/definitions/voter"
               },
-              "ideal_num_matches": {
+              "max_matches": {
                 "type": [
                   "integer"
                 ],

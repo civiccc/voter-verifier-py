@@ -77,7 +77,7 @@ def home():
       <input name='dob' value='1991-01-01' placeholder='DOB (yyyy-mm-dd)' /><br />
       ***REMOVED***
       ***REMOVED***
-      <input name='ideal_num_matches' value='3' placeholder='Ideal Number of Matches' />
+      ***REMOVED***
       <input type='submit' />
     </form>
     <hr />
@@ -110,7 +110,7 @@ def home():
           "contentType": "application/json",
           "data": JSON.stringify({
             "user": query,
-            "ideal_num_matches": parseInt($("input[name=ideal_num_matches]").val())
+            "max_matches": parseInt($("input[name=max_matches]").val())
           }),
           "success": function(resp, status, xhr) {
             $("#result").html("<ul></ul>");
@@ -190,8 +190,8 @@ def search(params):
         params['user']['dob'] = NullableDate(year=int(year), month=int(month), day=int(day))
 
     kwargs = params['user']
-    if params['ideal_num_matches']:
-        kwargs['ideal_num_matches'] = int(params['ideal_num_matches'])
+    if params['max_matches']:
+        kwargs['max_matches'] = int(params['max_matches'])
 
     matches = match_many(**kwargs)
     resp = json.dumps({'data': matches}, sort_keys=True, indent=4, separators=(',', ': '))
