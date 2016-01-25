@@ -198,7 +198,7 @@ def search(params):
         params['user']['dob'] = NullableDate(year=int(year), month=int(month), day=int(day))
 
     kwargs = params['user']
-    if params['max_matches']:
+    if 'max_matches' in params:
         kwargs['max_matches'] = int(params['max_matches'])
 
     matches = match_many(**kwargs)
