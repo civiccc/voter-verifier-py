@@ -32,7 +32,11 @@ fi
 ***REMOVED***
 ***REMOVED***
 # data, we will have to manually remove the old version's file from the
-# top level.
+# top level. Note that this copies the latest data into two distinct directories
+# because hdfs does not support symlinks.
+***REMOVED***
+***REMOVED***
+***REMOVED***
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
