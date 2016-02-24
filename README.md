@@ -10,11 +10,24 @@ By nature, the algorithm filters rather little and ranks rather much.
 
 In `indexing.INDEX_SETTINGS`, the `number_of_replicas` is presently 2.
 
+Development
+==========
+To get set up with development for the verifier, you will need Python 2.x
+installed. Then, run:
+
+```bash
+sudo pip install virtualenv
+virtualenv env
+source env/bin/activate
+pip install -r requirements.txt
+```
+
 Deployment
 ==========
 
 ```bash
 ***REMOVED***
+bli build [env]
 bli deploy [env]
 ```
 
