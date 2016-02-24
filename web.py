@@ -2,6 +2,7 @@ from datetime import datetime
 from flask import Flask, request
 from functools import wraps
 from jsonschema import Draft4Validator
+from pyelasticsearch import ElasticHttpNotFoundError
 from raven import Client as RavenClient
 import json
 import os
@@ -179,10 +180,13 @@ def match_random_address():
 def find_voter(id):
     """
     Find a voter by voterbase ID.
-
-    TODO: Implement this.
     """
-    return str(id)
+    try:
+        res = es_client.get(INDEX, DOC_TYPE, id)
+    except ElasticHttpNotFoundError:
+        return json.dumps({}), 404, {'Content-Type': 'application/json'}
+
+    return json.dumps(res['_source']), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/v1/voters/search', methods=['POST'])
