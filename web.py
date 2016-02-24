@@ -79,6 +79,7 @@ def home():
       ***REMOVED***
       ***REMOVED***
       ***REMOVED***
+      ***REMOVED***
       <input type='submit' />
     </form>
     <hr />
@@ -94,6 +95,11 @@ def home():
           "last_name": $("input[name=last_name]").val(),
           "dob": $("input[name=dob]").val()
         };
+
+        var zip_code = $("input[name=zip_code]").val();
+        if (zipCode.length) {
+          query["zip_code"] = zip_code;
+        }
 
         var city = $("input[name=city]").val();
         if (city.length) {
