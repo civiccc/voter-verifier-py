@@ -67,13 +67,20 @@ es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
     # it is simply listed as the "Voter File County Name".
     return {
         'address': row[header_map['vb.vf_reg_cass_address_full']],
+***REMOVED***
         'city': row[header_map['vb.vf_reg_cass_city']],
+***REMOVED***
         'st': row[header_map['vb.vf_reg_cass_state']],
+        'ts_st': row[header_map['vb.vf_reg_cass_state']],
         'zip_code': row[header_map['vb.vf_reg_cass_zip']],
+***REMOVED***
         'county': row[header_map['vb.vf_county_name']],
         'address_street_number': row[header_map['vb.vf_reg_cass_street_num']],
+***REMOVED***
         'address_unit_designator': row[header_map['vb.vf_reg_cass_unit_designator']],
+***REMOVED***
         'address_apt_number': row[header_map['vb.vf_reg_cass_apt_num']],
+***REMOVED***
     }
 
 
@@ -96,6 +103,7 @@ es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
         'status_flag': 'A' if row[header_map['vb.vf_voter_status']] == 'Active' else 'I',
 ***REMOVED***
         'registration_date': row[header_map['vb.vf_registration_date']] or None
+        'party': row[header_map['vb.vf_party']]
     }
 
 ***REMOVED***
