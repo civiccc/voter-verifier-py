@@ -96,9 +96,9 @@ def home():
           "dob": $("input[name=dob]").val()
         };
 
-        var zip_code = $("input[name=zip_code]").val();
+        var zipCode = $("input[name=zip_code]").val();
         if (zipCode.length) {
-          query["zip_code"] = zip_code;
+          query["zip_code"] = zipCode;
         }
 
         var city = $("input[name=city]").val();
