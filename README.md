@@ -25,9 +25,15 @@ pip install -r requirements.txt
 Deployment
 ==========
 
+The verifier is built by a jenkins job on every commit:
+
+***REMOVED***
+
+When you run these commands, you are probably deploying a docker image and
+tarball that was built by that jenkins job.
+
 ```bash
 ***REMOVED***
-bli build [env]
 bli deploy [env]
 ```
 
