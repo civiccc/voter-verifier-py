@@ -21,8 +21,8 @@ default: &default
 
   env: &default_env
     APP_DIRECTORY: '/mnt/mesos/sandbox'
-    UID: 4060 # pinned in cuisine/data_bags/users/verifier.json
-    GID: 4060 # pinned in cuisine/data_bags/users/verifier.json
+    APP_UID: 4060 # pinned in cuisine/data_bags/users/verifier.json
+    APP_GID: 4060 # pinned in cuisine/data_bags/users/verifier.json
     FLASK_ENV: 'production'
     STATSD_HOST: 'docker-host'
     SENTRY_DSN: 'https://c975cacd7f9148bd94ba4738fc039fb2:50e1b5fd696f444abf83c0984f6effe6@app.getsentry.com/55635'
