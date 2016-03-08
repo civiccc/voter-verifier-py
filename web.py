@@ -75,7 +75,7 @@ def home():
     <form id="test-form" method='POST' action='/match'>
       ***REMOVED***
       ***REMOVED***
-      <input name='dob' value='1991-01-01' placeholder='DOB (yyyy-mm-dd)' /><br />
+      ***REMOVED***
       ***REMOVED***
       ***REMOVED***
       ***REMOVED***
