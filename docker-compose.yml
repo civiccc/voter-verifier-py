@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+  gunicorn:
+    depends_on:
+      - elasticsearch
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      APP_UID:
+      APP_GID:
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/workspace'
+    working_dir: '/workspace'
+    command: ['bash', '-c',
+      'trap "pkill -SIGINT python" EXIT;
+       virtualenv env &&
+       source env/bin/activate &&
+       pip install -r requirements.txt --no-cache-dir &&
+       virtualenv --relocatable env &&
+       env/bin/gunicorn web:app -b 0.0.0.0:3000 --log-file=-']
+
+  elasticsearch:
+    image: 'brigade/elasticsearch:1.7-latest'
+    environment:
+      APP_UID:
+      APP_GID:
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    volumes:
+      - 'elasticsearch:/usr/share/elasticsearch/data'
+    command: 'elasticsearch --action.write_consistency=one'
+
+# Define names of volumes that you want to be preserved between container restarts.
+# These are referenced above in the `volumes` section of the service.
+volumes:
+  elasticsearch:

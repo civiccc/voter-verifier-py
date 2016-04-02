@@ -11,16 +11,27 @@ By nature, the algorithm filters rather little and ranks rather much.
 In `indexing.INDEX_SETTINGS`, the `number_of_replicas` is presently 2.
 
 Development
-==========
-To get set up with development for the verifier, you will need Python 2.x
-installed. Then, run:
+===========
+
+To get started with development for the verifier, you need to install
+Docker and our `dock` utility:
 
 ```bash
-sudo pip install virtualenv
-virtualenv env
-source env/bin/activate
-pip install -r requirements.txt
+***REMOVED***
+
+dock -S # Accept all defaults unless you know what you're doing
+
+eval "$(docker-machine env)" # Add this to your .bashrc so it's automatic
 ```
+
+You can then get started by running the `dock` utility in the root of the
+repository:
+
+```bash
+dock
+```
+
+You'll see additional instructions after running `dock`.
 
 Deployment
 ==========
@@ -45,9 +56,11 @@ Indexing happens monthly in a Chronos job:
 
 Tests
 ==========
+
+You can run tests in a container with:
+
 ```bash
-docker run --publish 9200:9200 -d elasticsearch:1.7.3 elasticsearch --action.write_consistency=one
-***REMOVED***
+bin/test
 ```
 
 JSON Schema

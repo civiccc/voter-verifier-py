@@ -1,46 +1,43 @@
-#!/usr/bin/env bash
-# To run this script locally (i.e. not via Docker):
-# ELASTICSEARCH_HOSTS=http://[es_host]:9200/ ./bin/test
-set -e
+#!/usr/local/bin/dock bash
 
-function cleanup() {
-  docker stop $es_image
-  docker rm -f $es_image >/dev/null
-  docker rmi -f $test_image >/dev/null
+# Executes tests in a containerized environment.
+
+cat <<MSG
+===============================================================================
+Downloading latest version of all images...
+===============================================================================
+MSG
+docker-compose pull
+
+# Ensure services are shutdown cleanly when exiting the shell
+safe-shutdown() {
+  docker-compose stop
 }
+trap safe-shutdown EXIT INT QUIT TERM
 
-function is-elasticsearch-up() {
-  timeout 1 curl -s $(docker port $es_image 9200) | grep --silent tagline
-}
+cat <<MSG
+===============================================================================
+Starting up backend services...
+===============================================================================
+MSG
+docker-compose up -d elasticsearch gunicorn
 
-function start-elasticsearch-container() {
-  es_image=$(docker run --publish 9200 --detach dockerfile/elasticsearch)
-  es_name=$(docker inspect -f '{{ .Name }}' $es_image)
-  echo $es_image
-  echo $es_name
+# Cheat by waiting for Gunicorn to start, since it also installs all the
+# python packages
+echo "Waiting for packages to install..."
+for tries in {0..120}; do
+  if curl http://localhost:3000 -I --fail --silent >/dev/null 2>&1; then
+    break
+  fi
+  sleep 1
+done
+if [ $tries = 120 ]; then
+  echo "Gunicorn did not start!"
+  docker logs workspace_gunicorn_1 # Can't use docker-compose logs since it follows
+  exit 1
+fi
+docker-compose stop gunicorn
 
-  echo -n 'Waiting for ES'
-  while ! is-elasticsearch-up; do
-    echo -n '.'
-    sleep 1
-  done
-  echo 'done'
-}
-
-echo "Building..."
-test_image=$(uuidgen)
-echo $test_image
-
-trap cleanup EXIT
-docker build -t $test_image .
-start-elasticsearch-container
-
-echo "----------------------------------------------------------------------"
-echo "Testing:"
-
-docker run \
-  --rm \
-  -e ELASTICSEARCH_HOSTS=http://elasticsearch:9200/ \
-  --link $es_name:elasticsearch \
-  $test_image \
-  env/bin/nosetests
+# Run 'em!
+source env/bin/activate
+make test
