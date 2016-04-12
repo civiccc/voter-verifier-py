@@ -11,7 +11,7 @@ default: &default
 
   deploy:
     nexus: { username: 'brigade-deployment', password: '8HBF5mMcfgkBSUp', group: 'verifier-deploy', tar_uid: 4060, tar_gid: 4060 }
-    docker: { docker_tag_repo: 'brigade/verifier-deploy' }
+***REMOVED***
 
   run:
     web: env/bin/gunicorn web:app -b 0.0.0.0:3000 --log-file=-
