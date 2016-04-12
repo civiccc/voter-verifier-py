@@ -20,6 +20,7 @@ cat <<MSG
 Starting up backend services...
 ===============================================================================
 MSG
+docker-compose rm --force -v elasticsearch # Ensure clean index each time
 docker-compose up -d elasticsearch gunicorn
 
 # Cheat by waiting for Gunicorn to start, since it also installs all the
