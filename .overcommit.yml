@@ -1,3 +1,6 @@
+# Ensure we use the version of Overcommit (and other gems) specified in the Gemfile
+gemfile: Gemfile
+
 CommitMsg:
   GerritChangeId:
     enabled: true

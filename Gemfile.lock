@@ -1,0 +1,54 @@
+GEM
+***REMOVED***
+  specs:
+    activesupport (4.2.6)
+      i18n (~> 0.7)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
+      tzinfo (~> 1.1)
+    bli (0.1.12)
+      activesupport (~> 4)
+      chamber (~> 2.8)
+      colorize (~> 0)
+      docker-api (~> 1.22)
+      multipart-post (~> 2)
+      net-ssh (~> 3)
+      poseidon (~> 0)
+      thor (~> 0)
+    chamber (2.8.0)
+      hashie (~> 3.3)
+      thor (~> 0.19.1)
+    childprocess (0.5.9)
+      ffi (~> 1.0, >= 1.0.11)
+    colorize (0.7.7)
+    docker-api (1.26.2)
+      excon (>= 0.38.0)
+      json
+    excon (0.47.0)
+    ffi (1.9.10)
+    hashie (3.4.3)
+    i18n (0.7.0)
+    iniparse (1.4.2)
+    json (1.8.3)
+    minitest (5.8.4)
+    multipart-post (2.0.0)
+    net-ssh (3.0.2)
+    overcommit (0.32.0)
+      childprocess (~> 0.5.8)
+      iniparse (~> 1.4)
+    poseidon (0.0.5)
+    thor (0.19.1)
+    thread_safe (0.3.5)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bli!
+  overcommit
+
+BUNDLED WITH
+   1.11.2
