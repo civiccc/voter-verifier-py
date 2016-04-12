@@ -1,3 +1,5 @@
+source 'https://rubygems.org'
+
 # For deploying the Verifier
 ***REMOVED***
 
