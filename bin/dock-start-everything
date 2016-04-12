@@ -22,6 +22,7 @@ cat <<MSG
 Starting up backend services...
 ===============================================================================
 MSG
+docker-compose rm --force -v elasticsearch # Ensure clean index each time
 docker-compose up -d elasticsearch gunicorn
 
 # Initialize virtualenv so we can easily run tests
