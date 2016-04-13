@@ -26,7 +26,7 @@ docker-compose up -d elasticsearch gunicorn
 # Cheat by waiting for Gunicorn to start, since it also installs all the
 # python packages
 echo "Waiting for packages to install..."
-for tries in {0..120}; do
+for tries in {0..180}; do
   if curl http://localhost:3000 -I --fail --silent >/dev/null 2>&1; then
     break
   fi

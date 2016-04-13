@@ -25,6 +25,22 @@ MSG
 docker-compose rm --force -v elasticsearch # Ensure clean index each time
 docker-compose up -d elasticsearch gunicorn
 
+# Cheat by waiting for Gunicorn to start, since it also installs all the
+# python packages
+echo "Waiting for packages to install..."
+for tries in {0..180}; do
+  if curl http://localhost:3000 -I --fail --silent >/dev/null 2>&1; then
+    break
+  fi
+  sleep 1
+done
+if [ $tries = 120 ]; then
+  echo "Gunicorn did not start!"
+  docker logs workspace_gunicorn_1 # Can't use docker-compose logs since it follows
+  exit 1
+fi
+docker-compose stop gunicorn
+
 # Initialize virtualenv so we can easily run tests
 source env/bin/activate
 
