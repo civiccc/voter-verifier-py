@@ -1,8 +1,13 @@
+# Defines the set up steps necessary to create an image to use Dock with this
+# repository, allowing you to easily develop or test the Verifier.
+
 FROM brigade/centos:7.2.1511-latest
 
-# Unfortunately we need to install this manually since the docker-compose
-# executable isn't a single binary when installed via Homebrew, so we can't
-# simply "mount" it. Thus we install the individual binary in the image itself
+# Install Docker-related software. We can't just mount the host executables in
+# the container since the host may be a Mac and thus using a different build
+***REMOVED***
+    | tar -xzf - -C /usr/local/bin --strip-components=3 \
+    && chmod +x /usr/local/bin/docker \
 ***REMOVED***
     | tar -xzf - -C /usr/local/bin \
     && chmod +x /usr/local/bin/docker-compose

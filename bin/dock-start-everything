@@ -36,7 +36,7 @@ for tries in {0..180}; do
 done
 if [ $tries = 120 ]; then
   echo "Gunicorn did not start!"
-  docker logs workspace_gunicorn_1 # Can't use docker-compose logs since it follows
+  docker-compose logs gunicorn
   exit 1
 fi
 docker-compose stop gunicorn

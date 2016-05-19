@@ -13,7 +13,6 @@ env+=("APP_GID=$current_gid")
 # Tests expect a Docker daemon to be available, so we allocate a volume so the
 # daemon running in the container uses a separate layer cache from the host.
 volumes+=("$repo_root/bin/dock-start-docker-daemon:/entrypoint.d/start-docker-daemon:ro")
-volumes+=("$(command -v docker):/bin/docker:ro")
 volumes+=("$container_name:/var/lib/docker:rw")
 
 # Credentials used to push/pull images to/from the Brigade org on Docker Hub
