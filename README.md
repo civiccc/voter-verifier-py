@@ -60,7 +60,7 @@ Tests
 You can run tests in a container with:
 
 ```bash
-bin/test
+script/test
 ```
 
 JSON Schema
