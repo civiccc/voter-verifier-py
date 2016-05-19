@@ -12,7 +12,7 @@ env+=("APP_GID=$current_gid")
 
 # Tests expect a Docker daemon to be available, so we allocate a volume so the
 # daemon running in the container uses a separate layer cache from the host.
-volumes+=("$repo_root/bin/dock-start-docker-daemon:/entrypoint.d/start-docker-daemon:ro")
+volumes+=("$repo_root/script/dock-start-docker-daemon:/entrypoint.d/start-docker-daemon:ro")
 volumes+=("$container_name:/var/lib/docker:rw")
 
 # Credentials used to push/pull images to/from the Brigade org on Docker Hub
@@ -22,4 +22,4 @@ exposed_ports+=("3000:3000") # Gunicorn
 exposed_ports+=("9200:9200" "9300:9300") # Elasticsearch
 
 # If no command is specified, start a running instance in a container
-command=bin/dock-start-everything
+command=script/dock-start-everything
