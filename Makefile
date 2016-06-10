@@ -8,7 +8,6 @@ test:
 
 bli:
 ***REMOVED***
-	rbenv rehash
 
 jenkins_ci: bli
 	DEBUG=1 bli test
