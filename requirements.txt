@@ -8,7 +8,7 @@ flask
 gunicorn
 django
 nose
-https://python-progressbar.googlecode.com/files/progressbar-2.3.tar.gz#egg=progressbar
+git+git://github.com/niltonvolpato/python-progressbar@32422c1148968336873b693b4016e709cd046a05#egg=progressbar
 boto
 datadog
 raven
