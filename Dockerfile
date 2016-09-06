@@ -6,8 +6,7 @@ FROM brigade/ruby:2.3.1-latest
 # Install Docker-related software. We can't just mount the host executables in
 # the container since the host may be a Mac and thus using a different build
 ***REMOVED***
-    | tar -xzf - -C /usr/local/bin --strip-components=3 \
-    && chmod +x /usr/local/bin/docker \
+    | tar -xzf - -C /usr/local/bin --strip-components=1 \
 ***REMOVED***
     | tar -xzf - -C /usr/local/bin \
     && chmod +x /usr/local/bin/docker-compose
