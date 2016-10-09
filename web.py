@@ -210,6 +210,8 @@ def search(params):
     kwargs = params['user']
     if 'max_matches' in params:
         kwargs['max_matches'] = int(params['max_matches'])
+    if 'search_type' in params:
+        kwargs['search_type'] = params['search_type']
 
     matches = match_many(**kwargs)
     resp = json.dumps({'data': matches}, sort_keys=True, indent=4, separators=(',', ': '))
