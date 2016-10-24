@@ -19,9 +19,6 @@ Docker and our `dock` utility:
 ```bash
 ***REMOVED***
 
-dock -S # Accept all defaults unless you know what you're doing
-
-eval "$(docker-machine env)" # Add this to your .bashrc so it's automatic
 ```
 
 You can then get started by running the `dock` utility in the root of the
