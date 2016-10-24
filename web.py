@@ -7,9 +7,6 @@ from raven import Client as RavenClient
 import json
 import os
 
-import traceback
-
-
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
@@ -70,7 +67,6 @@ def handle_error(e):
   # See: https://docs.python.org/2/library/sys.html#sys.exc_info
   #
   sentry.captureException()
-  traceback.print_exc()
   return "An exception occurred: %s" % (e,), 500
 
 @app.route('/')
@@ -109,8 +105,6 @@ def home():
       if (city.length) {
         query["city"] = city;
       }
-
-      query["search_type"] = "ADMIN";
 
       var state = $("input[name=state]").val();
       if (state.length) {
