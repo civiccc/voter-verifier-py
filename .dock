@@ -2,24 +2,32 @@
 
 # Configures the development/test environment for the Verifier.
 
-dockerfile=Dockerfile
-pull=true
+dockerfile Dockerfile
+privileged true # Need extended privileges to run Docker daemon in container
+pull_latest true
+
+# Whether or not we're running in a CI context
+ci() {
+  [ -n "${CI+x}" ] && [ "${CI}" -eq 1 ]
+}
 
 # Ensure the container runs as the current user, otherwise the files in the git
 # repo may have their ownership changed to root
-env+=("APP_UID=$current_uid")
-env+=("APP_GID=$current_gid")
+env_var APP_UID $(user_id)
+env_var APP_GID $(group_id)
 
 # Tests expect a Docker daemon to be available, so we allocate a volume so the
 # daemon running in the container uses a separate layer cache from the host.
-volumes+=("$repo_root/script/dock-start-docker-daemon:/entrypoint.d/start-docker-daemon:ro")
-volumes+=("$container_name:/var/lib/docker:rw")
+volume "$(repo_path)/script/dock-start-docker-daemon:/entrypoint.d/start-docker-daemon:ro"
+volume "$(container_name)_docker:/var/lib/docker:rw"
 
 # Credentials used to push/pull images to/from the Brigade org on Docker Hub
-volumes+=("$HOME/.docker:/home/app/.docker")
+volume "$HOME/.docker:/home/app/.docker"
 
-exposed_ports+=("3000:3000") # Gunicorn
-exposed_ports+=("9200:9200" "9300:9300") # Elasticsearch
+if ! ci; then
+  publish 3000:3000 # Gunicorn
+  publish 9200:9200; publish 9300:9300 # Elasticsearch
+fi
 
 # If no command is specified, start a running instance in a container
-command=script/dock-start-everything
+default_command script/dock-start-everything
