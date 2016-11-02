@@ -221,7 +221,7 @@ def search(params):
     kwargs['search_type'] = params['search_type']
 
   matches = match_many(**kwargs)
-  resp = json.dumps({'data': matches}, sort_keys=True, indent=4, separators=(',', ': '))
+  resp = json.dumps({'data': matches, 'num results': len(matches)}, sort_keys=True, indent=4, separators=(',', ': '))
 
   return resp, 200, {'Content-Type': 'application/json'}
 
