@@ -3,8 +3,10 @@ verifier
 
 This is the elasticsearch-based system which resolves buckets of fuzzy contact
 info to one or more voter registration records. The most interesting
-entrypoints are the `match_one` and `match_many` routines in
-`matching.py`.
+entrypoints is the `match_many` routines in `matching.py`.
+
+For further documentation and rationale see -
+***REMOVED***
 
 By nature, the algorithm filters rather little and ranks rather much.
 
