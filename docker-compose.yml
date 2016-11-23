@@ -10,8 +10,7 @@ services:
     environment:
       APP_UID:
       APP_GID:
-    ports:
-      - '3000:3000'
+    network_mode: host
     volumes:
       - '.:/workspace'
     working_dir: '/workspace'
@@ -22,14 +21,7 @@ services:
     environment:
       APP_UID:
       APP_GID:
-    ports:
-      - '9200:9200'
-      - '9300:9300'
+    network_mode: host
     tmpfs:
       - '/usr/share/elasticsearch/data:size=1G'
     command: ['elasticsearch', '--action.write_consistency=one']
-
-# Define names of volumes that you want to be preserved between container restarts.
-# These are referenced above in the `volumes` section of the service.
-volumes:
-  elasticsearch:
