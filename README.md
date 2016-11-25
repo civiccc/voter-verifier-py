@@ -57,4 +57,7 @@ This is the same script that Jenkins would run.
 ## JSON Schema
 
 To generate a new version of the schema.json file:
+
+```
 prmd combine --meta schema/meta.json schema/voters.json > schema.json
+```
