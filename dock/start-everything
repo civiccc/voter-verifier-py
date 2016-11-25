@@ -1,0 +1,47 @@
+#!/usr/local/bin/dock bash
+
+# Executed when you run `dock` in the root of this repo without any arguments.
+# It starts up core backend services and displays instructions for getting
+# started.
+
+source $(dirname $0)/../script/helpers.bash
+
+install-python-packages
+
+section "Downloading latest version of all images..."
+docker-compose pull
+
+# Ensure services are shutdown cleanly when exiting the shell
+exit_handler='trap "docker-compose stop; exit" EXIT INT QUIT TERM'
+eval "$exit_handler"
+
+section "Starting up backend services..."
+docker-compose up --build -d elasticsearch gunicorn
+
+wait-for-elasticsearch
+activate-virtualenv
+
+cat <<MSG
+================================ INSTRUCTIONS =================================
+
+You can view logs in this console by executing:
+
+  docker-compose logs [elasticsearch | gunicorn]
+
+You can restart services in this console by executing:
+
+  docker-compose restart [elasticsearch | gunicorn]
+
+You can run tests by executing:
+
+  make test
+
+===============================================================================
+MSG
+
+export PS1='[\h \W]\$ ' # Slightly better prompt
+
+# Re-exec as a new bash shell with the TRAP handler defined before entering the
+# prompt. This hack is necessary so that if you run `docker stop <id>` in order
+# to shut down this container that we still gracefully shutdown services.
+exec bash --rcfile <(echo $exit_handler) -i

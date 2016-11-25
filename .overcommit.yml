@@ -1,5 +1,8 @@
 # Ensure we use the version of Overcommit (and other gems) specified in the Gemfile
-gemfile: Gemfile
+gemfile: .overcommit_gems.rb
+
+# Don't need this for a private repo
+verify_signatures: false
 
 CommitMsg:
   GerritChangeId:
@@ -9,10 +12,6 @@ CommitMsg:
     enabled: true
 
 PreCommit:
-  ALL:
-    exclude:
-      - 'vendor/**/*'
-
   AuthorEmail:
     enabled: true
     description: 'Checking author email for Brigade domain'
@@ -20,18 +19,14 @@ PreCommit:
 
   HardTabs:
     enabled: true
-    description: 'Checking for hard tabs'
     exclude:
       - 'Makefile'
 
   JsonSyntax:
     enabled: true
 
-  MergeConflicts:
-    enabled: true
-
   TrailingWhitespace:
     enabled: true
 
-# Don't need this for a private repo
-verify_signatures: false
+  YamlSyntax:
+    enabled: true

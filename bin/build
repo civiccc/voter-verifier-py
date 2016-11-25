@@ -1,8 +1,0 @@
-#!/usr/local/bin/dock bash
-
-# Builds and deploys a verifier Docker image and source code tarball, pushing
-# to the Docker Hub and uploading to Nexus, respectively.
-#
-# Once both artifacts are uploaded, you can deploy with the bin/deploy script.
-
-make jenkins_build

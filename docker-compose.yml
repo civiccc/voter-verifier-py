@@ -4,9 +4,7 @@ services:
   gunicorn:
     depends_on:
       - elasticsearch
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: brigade/centos:7.2.1511-latest
     environment:
       APP_UID:
       APP_GID:

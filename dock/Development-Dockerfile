@@ -1,0 +1,13 @@
+# Defines the set up steps necessary to create an image to use Dock with this
+# repository, allowing you to easily develop or test the Verifier.
+
+FROM brigade/centos:7.2.1511-latest
+
+***REMOVED***
+    | tar -xzf - -C /usr/local/bin --strip-components=1 \
+***REMOVED***
+    | tar -xzf - -C /usr/local/bin \
+    && chmod +x /usr/local/bin/docker-compose
+
+# Used to maintain isolated Python environment in the repo
+RUN pip install virtualenv

@@ -1,8 +1,9 @@
-# vi: ft=sh
-
 # Configures the development/test environment for the Verifier.
 
-dockerfile Dockerfile
+project=verifier
+
+build_context dock
+dockerfile dock/Development-Dockerfile
 privileged true # Need extended privileges to run Docker daemon in container
 pull_latest true
 
@@ -16,18 +17,32 @@ ci() {
 env_var APP_UID $(user_id)
 env_var APP_GID $(group_id)
 
+# Configuration for uploading artifacts to Nexus
+env_var NEXUS_GROUP $project
+optional_env_var NEXUS_USER
+optional_env_var NEXUS_PASSWORD
+
 # Tests expect a Docker daemon to be available, so we allocate a volume so the
 # daemon running in the container uses a separate layer cache from the host.
-volume "$(repo_path)/script/dock-start-docker-daemon:/entrypoint.d/start-docker-daemon:ro"
+volume "$(repo_path)/dock/start-docker:/entrypoint.d/start-docker:ro"
 volume "$(container_name)_docker:/var/lib/docker:rw"
 
-# Credentials used to push/pull images to/from the Brigade org on Docker Hub
-volume "$HOME/.docker:/home/app/.docker"
+# Shared amongst all Verifier-related builds to coordinate artifact uploading.
+volume "${project}_tmp:/tmp"
+volume "${project}_cache:/home/app/.cache"
+
+# Expose Docker Hub credentials if they exist
+if [ -d "$HOME/.docker" ]; then
+  volume "$HOME/.docker:/home/app/.docker"
+fi
 
 if ! ci; then
   publish 3000:3000 # Gunicorn
-  publish 9200:9200; publish 9300:9300 # Elasticsearch
+  publish 9200:9200 # Elasticsearch HTTP
+  publish 9300:9300 # Elasticsearch Transport
 fi
 
 # If no command is specified, start a running instance in a container
-default_command script/dock-start-everything
+default_command dock/start-everything
+
+# vi: ft=sh
