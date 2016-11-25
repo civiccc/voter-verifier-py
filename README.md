@@ -1,7 +1,6 @@
-verifier
-================
+# Verifier
 
-This is the elasticsearch-based system which resolves buckets of fuzzy contact
+This is the Elasticsearch-based system which resolves buckets of fuzzy contact
 info to one or more voter registration records. The most interesting
 entrypoints is the `match_many` routines in `matching.py`.
 
@@ -12,19 +11,14 @@ By nature, the algorithm filters rather little and ranks rather much.
 
 In `indexing.INDEX_SETTINGS`, the `number_of_replicas` is presently 2.
 
-Development
-===========
+## Development
 
 To get started with development for the verifier, you need to install
 Docker and our `dock` utility:
 
-```bash
 ***REMOVED***
 
-```
-
-You can then get started by running the `dock` utility in the root of the
-repository:
+You can then get started by running `dock` in the root of the repository:
 
 ```bash
 dock
@@ -32,37 +26,33 @@ dock
 
 You'll see additional instructions after running `dock`.
 
-Deployment
-==========
+## Deployment
 
-The verifier is built by a jenkins job on every commit:
+The verifier is deployed to staging after every commit merged:
 
 ***REMOVED***
 
-When you run these commands, you are probably deploying a docker image and
-tarball that was built by that jenkins job.
+You can manually deploy by running:
 
-```bash
-***REMOVED***
-bli deploy [env]
+```
+jenkins/deploy [staging | production]
 ```
 
-Indexing
-==========
+## Indexing
+
 Indexing happens monthly in a Chronos job:
 
 ***REMOVED***
 
-Tests
-==========
+## Testing
 
 You can run tests in a container with:
 
 ```bash
-script/test
+jenkins/test
 ```
 
-JSON Schema
-==========
+## JSON Schema
+
 To generate a new version of the schema.json file:
 prmd combine --meta schema/meta.json schema/voters.json > schema.json
