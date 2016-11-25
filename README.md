@@ -52,6 +52,8 @@ You can run tests in a container with:
 jenkins/test
 ```
 
+This is the same script that Jenkins would run.
+
 ## JSON Schema
 
 To generate a new version of the schema.json file:
