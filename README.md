@@ -38,11 +38,16 @@ You can manually deploy by running:
 jenkins/deploy [staging | production]
 ```
 
-## Indexing
+To deploy an image tag that has already been pushed, specify
+the `DEPLOY_TAG` environment variable:
 
-Indexing happens monthly in a Chronos job:
+```
+DEPLOY_TAG=2016-12-27_23-18-47_7970879 jenkins/deploy production
+```
 
-***REMOVED***
+This avoids building and pushing the image (which can take time).
+See ***REMOVED*** for a list of
+available tags.
 
 ## Testing
 
