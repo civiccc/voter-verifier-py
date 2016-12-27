@@ -25,6 +25,9 @@ optional_env_var NEXUS_PASSWORD
 # Allow user to deploy an Docker image tag that has already been pushed
 optional_env_var DEPLOY_TAG
 
+# Used by Jenkins jobs to unlock Arcanus chest during deployment
+optional_env_var ARCANUS_PASSWORD
+
 # Tests expect a Docker daemon to be available, so we allocate a volume so the
 # daemon running in the container uses a separate layer cache from the host.
 volume "$(repo_path)/dock/start-docker:/entrypoint.d/start-docker:ro"
