@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Entrypoint script executed by Marathon to start up the Verifier in the
+# container.
+
+# PORT0 is assigned by Marathon
+exec env/bin/gunicorn web:app -b 0.0.0.0:${PORT0:-3000} --log-file=-
