@@ -15,11 +15,9 @@ services:
     command: ['env/bin/gunicorn', 'web:app', '-b', '0.0.0.0:3000', '--log-file=-']
 
   elasticsearch:
-    image: 'brigade/elasticsearch:1.7-latest'
-    environment:
-      APP_UID:
-      APP_GID:
-    network_mode: host
+    extends:
+      file: $BASE_COMPOSE
+      service: elasticsearch_base
     tmpfs:
       - '/usr/share/elasticsearch/data:size=1G'
     command: ['elasticsearch', '--action.write_consistency=one']
