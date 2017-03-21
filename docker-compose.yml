@@ -17,7 +17,5 @@ services:
   elasticsearch:
     extends:
       file: $BASE_COMPOSE
-      service: elasticsearch_base
-    tmpfs:
-      - '/usr/share/elasticsearch/data:size=1G'
+      service: elasticsearch_test_base
     command: ['elasticsearch', '--action.write_consistency=one']
