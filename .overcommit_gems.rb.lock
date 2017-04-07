@@ -1,19 +1,19 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    childprocess (0.5.9)
+    childprocess (0.6.3)
       ffi (~> 1.0, >= 1.0.11)
-    ffi (1.9.14)
+    ffi (1.9.18)
     iniparse (1.4.2)
-    overcommit (0.37.0)
-      childprocess (~> 0.5.8)
+    overcommit (0.39.1)
+      childprocess (~> 0.6.3)
       iniparse (~> 1.4)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  overcommit (= 0.37.0)!
+  overcommit (= 0.39.1)!
 
 BUNDLED WITH
-   1.12.5
+   1.14.4

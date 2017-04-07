@@ -7,5 +7,5 @@
 # ...to update the associated lock file.
 
 source 'https://rubygems.org' do
-  gem 'overcommit', '0.37.0'
+  gem 'overcommit', '0.39.1'
 end
