@@ -1,21 +1,42 @@
 version: '2'
 
 services:
-  gunicorn:
-    depends_on:
-      - elasticsearch
+  gunicorn_base:
     image: brigade/centos:7.2.1511-latest
     environment:
       APP_UID:
       APP_GID:
     network_mode: host
+    ports:
+      - '11012:3000'
     volumes:
       - '.:/workspace'
     working_dir: '/workspace'
     command: ['env/bin/gunicorn', 'web:app', '-b', '0.0.0.0:3000', '--log-file=-']
 
-  elasticsearch:
+  gunicorn_dev:
+    extends:
+      service: gunicorn_base
+    depends_on:
+      - elasticsearch_dev
+
+  gunicorn_test:
+    extends:
+      service: gunicorn_base
+    depends_on:
+      - elasticsearch_test
+
+  elasticsearch_dev:
+    extends:
+      file: $BASE_COMPOSE
+      service: elasticsearch_dev_base
+    command: ['elasticsearch', '--action.write_consistency=one']
+
+  elasticsearch_test:
     extends:
       file: $BASE_COMPOSE
       service: elasticsearch_test_base
     command: ['elasticsearch', '--action.write_consistency=one']
+
+volumes:
+  elasticsearch:

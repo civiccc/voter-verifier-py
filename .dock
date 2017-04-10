@@ -4,8 +4,6 @@ project=verifier
 
 build_context dock
 dockerfile dock/Development-Dockerfile
-privileged true # Need extended privileges to run Docker daemon in container
-pull_latest true
 
 # Whether or not we're running in a CI context
 ci() {
@@ -38,9 +36,17 @@ if [ -d "$HOME/.docker" ]; then
 fi
 
 if ! ci; then
-  publish 3000:3000 # Gunicorn
-  publish 9200:9200 # Elasticsearch HTTP
-  publish 9300:9300 # Elasticsearch Transport
+  # Startup services.
+  startup_services "--build gunicorn_dev"
+
+  # Setup the network in host mode
+  run_flags --network host
+else
+  # Startup services
+  startup_services "--build gunicorn_test"
+
+  # Setup the network in bridge mode
+  run_flags --network bridge
 fi
 
 # If no command is specified, start a running instance in a container
