@@ -2,7 +2,9 @@ version: '2'
 
 services:
   gunicorn_base:
-    image: brigade/centos:7.2.1511-latest
+    build:
+      context: .
+      dockerfile: dock/bootstrap_dockerfile
     environment:
       APP_UID:
       APP_GID:
@@ -10,8 +12,8 @@ services:
     ports:
       - '11012:3000'
     volumes:
-      - '.:/workspace'
-    working_dir: '/workspace'
+      - '.:/src'
+    working_dir: '/src'
     command: ['env/bin/gunicorn', 'web:app', '-b', '0.0.0.0:3000', '--log-file=-']
 
   gunicorn_dev:

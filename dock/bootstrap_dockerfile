@@ -1,0 +1,17 @@
+# Defines the set of steps needed to create an image suitable for deploying the
+# Verifier to Marathon.
+
+FROM brigade/centos:7.2.1511-latest
+
+# Copy all source code into the container
+# See the .dockerignore file for a list of files that are excluded
+COPY . /src
+
+# Modify permissions so application user can access source files
+RUN chown -R nobody /src
+WORKDIR /src
+
+RUN pip install virtualenv
+RUN rm -rf /src/env
+
+RUN /bin/bash -c 'source /src/script/helpers.bash; install-python-packages; activate-virtualenv'
