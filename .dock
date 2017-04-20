@@ -9,7 +9,6 @@ dockerfile dock/Development-Dockerfile
 ci() {
   [ -n "${CI+x}" ] && [ "${CI}" -eq 1 ]
 }
-
 # Ensure the container runs as the current user, otherwise the files in the git
 # repo may have their ownership changed to root
 env_var APP_UID $(user_id)
@@ -26,10 +25,6 @@ optional_env_var DEPLOY_TAG
 # Used by Jenkins jobs to unlock Arcanus chest during deployment
 optional_env_var ARCANUS_PASSWORD
 
-# Shared amongst all Verifier-related builds to coordinate artifact uploading.
-volume "${project}_tmp:/tmp"
-volume "${project}_cache:/home/app/.cache"
-
 # Expose Docker Hub credentials if they exist
 if [ -d "$HOME/.docker" ]; then
   volume "$HOME/.docker:/home/app/.docker"
@@ -39,11 +34,21 @@ if ! ci; then
   # Startup services.
   startup_services "--build gunicorn_dev"
 
+  # Only persists files to be used across project builds
+  # when not running in CI context
+  volume "${project}_tmp:/tmp"
+  volume "${project}_cache:/home/app/.cache"
+
   # Setup the network in host mode
   run_flags --network host
 else
   # Startup services
   startup_services "--build gunicorn_test"
+
+  # Only persists files to be used across project builds
+  # when not running in CI context
+  volume "/tmp"
+  volume "/home/app/.cache"
 
   # Setup the network in bridge mode
   run_flags --network bridge
