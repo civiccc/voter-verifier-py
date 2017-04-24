@@ -9,6 +9,8 @@ dockerfile dock/Development-Dockerfile
 ci() {
   [ -n "${CI+x}" ] && [ "${CI}" -eq 1 ]
 }
+env_var CI "{CI:-0}"
+
 # Ensure the container runs as the current user, otherwise the files in the git
 # repo may have their ownership changed to root
 env_var APP_UID $(user_id)
@@ -32,7 +34,7 @@ fi
 
 if ! ci; then
   # Startup services.
-  startup_services "--build gunicorn_dev"
+  startup_services "verifier"
 
   # Only persists files to be used across project builds
   # when not running in CI context
@@ -43,7 +45,7 @@ if ! ci; then
   run_flags --network host
 else
   # Startup services
-  startup_services "--build gunicorn_test"
+  startup_services "verifier_test"
 
   # Only persists files to be used across project builds
   # when not running in CI context

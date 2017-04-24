@@ -16,7 +16,7 @@ exit_handler='trap "docker-compose stop; exit" EXIT INT QUIT TERM'
 eval "$exit_handler"
 
 section "Starting up backend services..."
-docker-compose up --build -d gunicorn_dev
+docker-compose up --build -d verifier
 
 wait-for-elasticsearch
 activate-virtualenv

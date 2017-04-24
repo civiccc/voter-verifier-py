@@ -1,14 +1,13 @@
 version: '2'
 
 services:
-  gunicorn_base:
+  verifier_base:
     build:
       context: .
       dockerfile: dock/bootstrap_dockerfile
     environment:
       APP_UID:
       APP_GID:
-    network_mode: host
     ports:
       - '11012:3000'
     volumes:
@@ -16,19 +15,19 @@ services:
     working_dir: '/src'
     command: ['env/bin/gunicorn', 'web:app', '-b', '0.0.0.0:3000', '--log-file=-']
 
-  gunicorn_dev:
+  verifier:
     extends:
-      service: gunicorn_base
+      service: verifier_base
     depends_on:
-      - elasticsearch_dev
+      - elasticsearch
 
-  gunicorn_test:
+  verifier_test:
     extends:
-      service: gunicorn_base
+      service: verifier_base
     depends_on:
       - elasticsearch_test
 
-  elasticsearch_dev:
+  elasticsearch:
     extends:
       file: $BASE_COMPOSE
       service: elasticsearch_dev_base
