@@ -6,8 +6,6 @@
 
 source $(dirname $0)/../script/helpers.bash
 
-install-python-packages
-
 section "Downloading latest version of all images..."
 docker-compose pull
 
@@ -17,9 +15,6 @@ eval "$exit_handler"
 
 section "Starting up backend services..."
 docker-compose up --build -d verifier
-
-wait-for-elasticsearch
-activate-virtualenv
 
 cat <<MSG
 ================================ INSTRUCTIONS =================================

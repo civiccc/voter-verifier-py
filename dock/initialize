@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source /src/script/helpers.bash
+
+section "Activating virtual environment..."
+cd /src
+rm -rf env
+
+install-python-packages
+activate-virtualenv
