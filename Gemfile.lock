@@ -1,0 +1,60 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    arcanus (1.1.1)
+      diffy (~> 3.1)
+      tty (~> 0.2.0)
+    childprocess (0.6.3)
+      ffi (~> 1.0, >= 1.0.11)
+    diffy (3.2.0)
+    equatable (0.5.0)
+    ffi (1.9.18)
+    iniparse (1.4.2)
+    necromancer (0.3.0)
+    overcommit (0.39.1)
+      childprocess (~> 0.6.3)
+      iniparse (~> 1.4)
+    pastel (0.5.3)
+      equatable (~> 0.5.0)
+      tty-screen (~> 0.4.3)
+    tty (0.2.1)
+      equatable (~> 0.5.0)
+      necromancer (~> 0.3.0)
+      pastel (~> 0.5.1)
+      tty-pager (~> 0.3.0)
+      tty-platform (~> 0.1.0)
+      tty-progressbar (~> 0.7.0)
+      tty-screen (~> 0.4.0)
+      tty-spinner (~> 0.1.0)
+      tty-table (~> 0.4.0)
+      tty-which (~> 0.1.0)
+    tty-pager (0.3.0)
+      tty-screen (~> 0.4.0)
+      tty-which (~> 0.1.0)
+      verse (~> 0.4.0)
+    tty-platform (0.1.0)
+    tty-progressbar (0.7.0)
+      tty-screen (~> 0.4.0)
+    tty-screen (0.4.3)
+    tty-spinner (0.1.0)
+    tty-table (0.4.0)
+      equatable (~> 0.5.0)
+      necromancer (~> 0.3.0)
+      pastel (~> 0.5.1)
+      tty-screen (~> 0.4.0)
+      unicode_utils (~> 1.4.0)
+      verse (~> 0.4.0)
+    tty-which (0.1.0)
+    unicode_utils (1.4.0)
+    verse (0.4.0)
+      unicode_utils (~> 1.4.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  arcanus (~> 1.1.1)
+  overcommit (~> 0.39.1)
+
+BUNDLED WITH
+   1.14.6

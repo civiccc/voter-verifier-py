@@ -1,5 +1,6 @@
 # Exclude files matching these patterns from the Docker build context by
 # default.
+.arcanus/unprotected.key
 .git
 dock
 jenkins

@@ -8,3 +8,9 @@ rm -rf env
 
 install-python-packages
 activate-virtualenv
+
+if [ -n "${ARCANUS_PASSWORD}" ]; then
+  section "Unlocking secrets..."
+  install-gems
+  arcanus unlock
+fi

@@ -7,7 +7,7 @@ dockerfile dock/Development-Dockerfile
 
 # Whether or not we're running in a CI context
 ci() {
-  [ -n "${CI+x}" ] && [ "${CI}" -eq 1 ]
+  [ "${CI:-0}" = 1 ]
 }
 env_var CI "{CI:-0}"
 

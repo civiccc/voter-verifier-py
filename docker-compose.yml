@@ -8,6 +8,7 @@ services:
     environment:
       APP_UID:
       APP_GID:
+      ARCANUS_PASSWORD: ${ARCANUS_PASSWORD_VERIFIER}
     ports:
       - '11012:3000'
     volumes:
