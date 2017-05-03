@@ -9,6 +9,8 @@ services:
       APP_UID:
       APP_GID:
       ARCANUS_PASSWORD: ${ARCANUS_PASSWORD_VERIFIER}
+      ELASTICSEARCH_HOSTS: http://docker-host:9200/
+      FLASK_ENV: 'development'
     ports:
       - '11012:3000'
     volumes:
