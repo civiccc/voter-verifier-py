@@ -40,6 +40,7 @@ if ! ci; then
   # when not running in CI context
   volume "${project}_tmp:/tmp"
   volume "${project}_cache:/home/app/.cache"
+  volume "${container_name}_docker:/var/lib/docker:rw"
 
   # Setup the network in host mode
   run_flags --network host
