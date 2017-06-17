@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'arcanus', '~> 1.1.1'
+gem 'arcanus', '~> 1.2.0'
 gem 'overcommit', '~> 0.39.1'

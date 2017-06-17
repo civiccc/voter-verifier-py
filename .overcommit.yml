@@ -1,6 +1,3 @@
-# Ensure we use the version of Overcommit (and other gems) specified in the Gemfile
-gemfile: .overcommit_gems.rb
-
 # Don't need this for a private repo
 verify_signatures: false
 
