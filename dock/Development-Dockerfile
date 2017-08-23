@@ -1,7 +1,8 @@
 # Defines the set up steps necessary to create an image to use Dock with this
 # repository, allowing you to easily develop or test the Verifier.
 
-FROM brigade/dock:latest
+# FROM brigade/dock:latest
+FROM brigade/dock:ruby-2.3.1-e9e301b
 
 # Used to maintain isolated Python environment in the repo
 RUN pip install virtualenv
