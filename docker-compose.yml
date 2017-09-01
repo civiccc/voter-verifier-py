@@ -1,10 +1,15 @@
-version: '2'
+version: '2.1'
 
 services:
   verifier_base:
     build:
       context: .
       dockerfile: dock/bootstrap_dockerfile
+    healthcheck:
+      test: curl localhost:3000
+      interval: 1s
+      timeout: 1s
+      retries: 120
     environment:
       APP_UID:
       APP_GID:
@@ -22,13 +27,15 @@ services:
     extends:
       service: verifier_base
     depends_on:
-      - elasticsearch
+      elasticsearch:
+        condition: service_healthy
 
   verifier_test:
     extends:
       service: verifier_base
     depends_on:
-      - elasticsearch_test
+      elasticsearch_test:
+        condition: service_healthy
 
   elasticsearch:
     extends:
