@@ -198,7 +198,10 @@ def find_voter(id):
   except ElasticHttpNotFoundError:
     return json.dumps({}), 404, {'Content-Type': 'application/json'}
 
-  return json.dumps(res['_source']), 200, {'Content-Type': 'application/json'}
+  format = request.args.get('format', 'false').lower() == 'true'
+  rec = from_elasticsearch_mapping(res) if format else res['_source']
+
+  return json.dumps(rec), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/v1/voters/search', methods=['POST'])

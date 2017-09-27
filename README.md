@@ -66,3 +66,11 @@ To generate a new version of the schema.json file:
 ```
 prmd combine --meta schema/meta.json schema/voters.json > schema.json
 ```
+
+## Ruby client for the Brigade repo
+
+To create the ruby client for Brigade:
+
+```
+heroics-generate VerifierAPI schema.json http://127.0.0.1:10012  > verifier_api.rb
+```

@@ -18,6 +18,12 @@
             "string"
           ]
         },
+        "format": {
+          "description": "Whether to format the voter record",
+          "type": [
+            "string"
+          ]
+        },
         "voter": {
           "description": "User fields",
           "type": [
@@ -264,7 +270,7 @@
         {
           "description": "Find a user by ID",
           "method": "GET",
-          "href": "/v1/voters/{(/definitions/voters/definitions/id)}",
+          "href": "/v1/voters/{(%2Fdefinitions%2Fvoters%2Fdefinitions%2Fid)}?format={(%2Fdefinitions%2Fvoters%2Fdefinitions%2Fformat)}",
           "rel": "self",
           "title": "get"
         },
