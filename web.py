@@ -194,12 +194,14 @@ def find_voter(id):
   Find a voter by voterbase ID.
   """
   try:
-    res = es_client.get(INDEX, DOC_TYPE, id)
+    hit = es_client.get(INDEX, DOC_TYPE, id)
   except ElasticHttpNotFoundError:
     return json.dumps({}), 404, {'Content-Type': 'application/json'}
 
-  format = request.args.get('format', 'false').lower() == 'true'
-  rec = from_elasticsearch_mapping(res) if format else res['_source']
+  rec = hit['_source']
+  if request.args.get('format', 'false').lower() == 'true':
+      hit['_score'] = 0
+      rec = from_elasticsearch_mapping(hit)
 
   return json.dumps(rec), 200, {'Content-Type': 'application/json'}
 
