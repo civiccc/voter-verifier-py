@@ -6,7 +6,7 @@ more_itertools
 ***REMOVED***
 flask
 gunicorn
-django
+django==1.11
 nose
 git+git://github.com/niltonvolpato/python-progressbar@32422c1148968336873b693b4016e709cd046a05#egg=progressbar
 boto
