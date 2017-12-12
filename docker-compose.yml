@@ -8,7 +8,7 @@ services:
     healthcheck:
       test: curl localhost:3000
       interval: 1s
-      timeout: 1s
+      timeout: 10s
       retries: 120
     environment:
       APP_UID:
