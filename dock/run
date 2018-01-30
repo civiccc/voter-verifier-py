@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -n "${ARCANUS_PASSWORD}" || -f "/src/.arcanus/unprotected.key" ]; then
+if [[ -n "${ARCANUS_PASSWORD}" || -f "/src/.arcanus/unprotected.key" ]]; then
   eval "$(arcanus export --shell)"
 fi
 
