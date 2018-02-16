@@ -73,6 +73,24 @@
       }
     },
     {
+      "description": "Match a user to their phone and email",
+      "method": "POST",
+      "href": "/v1/voters/contact_search",
+      "title": "search",
+      "rel": "matches",
+      "schema": {
+        "properties": {
+          "phone": { "type": "string" },
+          "email": { "type": "string" },
+          "max_matches": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "type": ["object"]
+      }
+    },
+    {
       "description": "Find a user by ID",
       "method": "GET",
       "href": "/v1/voters/{(/definitions/voters/definitions/id)}?format={(/definitions/voters/definitions/format)}",

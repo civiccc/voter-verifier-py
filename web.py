@@ -4,6 +4,7 @@ from functools import wraps
 from jsonschema import Draft4Validator
 from pyelasticsearch import ElasticHttpNotFoundError
 from raven import Client as RavenClient
+from sets import Set
 import json
 import os
 
@@ -204,6 +205,35 @@ def find_voter(id):
       rec = from_elasticsearch_mapping(hit)
 
   return json.dumps(rec), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/v1/voters/contact_search', methods=['POST'])
+@validate_api_request
+def contact_search(params):
+  """ Match voter records by name, phone and email """
+  max_matches = params.get('max_matches', 100)
+  email = params.get('email', '')
+  phone = params.get('phone', '')
+
+  email_hits = lookup_by_email(email, max_matches) if email else []
+  phone_hits = lookup_by_phone(phone, max_matches) if phone else []
+
+  hits = []
+  if not phone:
+    hits = email_hits
+  elif not email:
+    hits = phone_hits
+  else:
+    # both email and phone were specified - take the intersection of their matches
+    phone_ids = Set([hit['id'] for hit in phone_hits])
+    hits = [ hit for hit in email_hits if hit['id'] in phone_ids]
+
+  resp = json.dumps({'data': hits, 'num_results': len(hits), 'max_matches': max_matches},
+                    sort_keys=True,
+                    indent=4,
+                    separators=(',', ': '))
+
+  return resp, 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/v1/voters/search', methods=['POST'])
