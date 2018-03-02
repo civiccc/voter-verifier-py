@@ -3,7 +3,7 @@
 project=verifier
 
 build_context dock
-dockerfile dock/Development-Dockerfile
+dockerfile dock/development_Dockerfile
 
 # Whether or not we're running in a CI context
 ci() {

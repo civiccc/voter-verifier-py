@@ -4,7 +4,7 @@ services:
   verifier_base:
     build:
       context: .
-      dockerfile: dock/bootstrap_dockerfile
+      dockerfile: dock/bootstrap_Dockerfile
     healthcheck:
       test: curl localhost:3000
       interval: 1s
