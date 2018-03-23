@@ -208,6 +208,7 @@ def find_voter(id):
 
 
 @app.route('/v1/voters/contact_search', methods=['POST'])
+@statsd.timed('verifier.response_time.contact_search')
 @validate_api_request
 def contact_search(params):
   """ Match voter records by name, phone and email """
