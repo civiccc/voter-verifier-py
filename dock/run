@@ -4,4 +4,4 @@ if [[ -n "${ARCANUS_PASSWORD}" || -f "/src/.arcanus/unprotected.key" ]]; then
   eval "$(arcanus export --shell)"
 fi
 
-cd /src && env/bin/gunicorn web:app -b 0.0.0.0:3000 --log-file=-
+cd /src && env/bin/gunicorn web:app -b 0.0.0.0:3000 -w 8 --log-file=-
