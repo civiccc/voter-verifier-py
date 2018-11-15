@@ -41,12 +41,14 @@ services:
     extends:
       file: $BASE_COMPOSE
       service: elasticsearch_dev_base
+    image: 'brigade/elasticsearch:1.7-latest'
     command: ['elasticsearch', '--action.write_consistency=one']
 
   elasticsearch_test:
     extends:
       file: $BASE_COMPOSE
       service: elasticsearch_test_base
+    image: 'brigade/elasticsearch:1.7-latest'
     command: ['elasticsearch', '--action.write_consistency=one']
 
 volumes:
