@@ -4,7 +4,7 @@ This is the Elasticsearch-based system which resolves buckets of fuzzy contact
 info to one or more voter registration records. The most interesting
 entrypoints is the `match_many` routines in `matching.py`.
 
-For further documentation and rationale see -
+For further documentation and rationale see:
 ***REMOVED***
 
 By nature, the algorithm filters rather little and ranks rather much.
