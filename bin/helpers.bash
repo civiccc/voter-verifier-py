@@ -1,8 +1,5 @@
 set -euo pipefail
 
-source /***REMOVED***
-source /***REMOVED***
-
 # Need to include Python version since some packages may link against libraries
 # specific to that version
 env-artifact-name() {
