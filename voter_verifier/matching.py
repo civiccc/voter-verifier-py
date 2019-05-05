@@ -49,8 +49,6 @@ def from_elasticsearch_mapping(hit):
 
   return {
     'id': hit['_id'],
-***REMOVED***
-***REMOVED***
     'first_name': _source['first_name'],
     'last_name': _source['last_name'],
     'middle_name': _source['middle_name'],
@@ -84,54 +82,13 @@ def format_contact(hit):
   """ Format an elasticsearch hit, including the email and phone fields"""
   email_fields = ['email', 'email_append_level', 'email_match_type']
   phone_fields = ['phone', 'vb_phone', 'vb_phone_type', 'vb_phone_wireless', 'ts_wireless_phone']
-  score_fields = ['voter_score', # only score that is not a float
-                  'activist_score',
-                  'campaign_finance_score',
-                  'catholic_score',
-                  'children_present_score',
-                  'climate_change_score',
-                  'college_funding_score',
-                  'college_graduate_score',
-                  'evangelical_score',
-                  'govt_privacy_score',
-                  'gun_control_score',
-                  'gunowner_score',
-                  'high_school_only_score',
-                  'ideology_score',
-                  'income_rank_score',
-                  'local_voter_score',
-                  'marriage_score',
-                  'midterm_general_turnout_score',
-                  'minimum_wage_score',
-                  'moral_authority_score',
-                  'moral_care_score',
-                  'moral_equality_score',
-                  'moral_equity_score',
-                  'moral_loyalty_score',
-                  'moral_purity_score',
-                  'non_presidential_primary_turnout_score',
-                  'nonchristian_score',
-                  'offyear_general_turnout_score',
-                  'otherchristian_score',
-                  'paid_leave_score',
-                  'partisan_score',
-                  'path_to_citizen_score',
-                  'presidential_general_turnout_score',
-                  'presidential_primary_turnout_score',
-                  'prochoice_score',
-                  'tax_on_wealthy_score',
-                  'teaparty_score',
-                  'trump_resistance_score',
-                  'trump_support_score',
-                  'veteran_score']
-  race_scores = ['race_white_score', 'race_afam_score', 'race_hisp_score', 'race_natam_score', 'race_asian_score']
   voting_fields = ['vf_g2016', 'vf_g2014', 'vf_g2012', 'vf_p2016', 'vf_p2014', 'vf_p2012']
   et_al = ['num_general_election_votes', 'num_primary_election_votes'] #integers
 
   source = hit['_source']
   rec = from_elasticsearch_mapping(hit)
 
-  for field in email_fields + phone_fields + score_fields + race_scores + voting_fields + et_al:
+  for field in email_fields + phone_fields + voting_fields + et_al:
     rec[field] = source.get(field, None)
 
   return rec

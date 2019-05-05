@@ -79,12 +79,12 @@ def home():
   return """
   <form id="test-form" method='POST' action='/match'>
     <input name='first_name' value='Jane' placeholder='First Name' /><br />
-    ***REMOVED***
+    <input name='last_name' value='Smith' placeholder='Last Name' /><br />
     <input name='dob' value='1984-00-00' placeholder='DOB (yyyy-mm-dd)' /><br />
     <input name='zip_code' value='12345' placeholder='Zip Code' /><br />
     <input name='city' value='Anytown' placeholder='City (Euclid)' /><br />
     <input name='state' value='ST' placeholder='State (e.g. CA)' /><br />
-    ***REMOVED***
+    <input name='max_matches' value='3' placeholder='Maximum Number of Matches' />
     <input type='submit' />
   </form>
   <hr />
