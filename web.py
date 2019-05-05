@@ -12,9 +12,9 @@ import traceback
 
 
 from verifier_date_utils import NullableDate
-***REMOVED***
-***REMOVED***
-***REMOVED***
+from voter_verifier.matching import from_elasticsearch_mapping, match_many, lookup_by_email, lookup_by_phone, es_client, statsd
+from voter_verifier.random_matching import match_random_addresses, es_client
+from voter_verifier.config import INDEX, SENTRY_DSN, DOC_TYPE
 
 app = Flask(__name__)
 sentry = RavenClient(SENTRY_DSN)
@@ -284,8 +284,8 @@ def health(kind=None):
   """
 
   status = es_client.status(INDEX)['indices']
-***REMOVED***
-***REMOVED***
+  # We use index aliases to map "voter_verifier" ->
+  # "voter_verifier_1234...". The real name is returned by the status
   # endpoint, so we'll just assume that if an index is returned here, it is
   # the correct one.
   status = status[status.keys()[0]]

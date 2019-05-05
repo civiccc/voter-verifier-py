@@ -2,7 +2,7 @@ import csv
 
 from collections import namedtuple
 
-***REMOVED***
+from voter_verifier.config import ZIP_TO_LAT_LNG_FILE_NAME
 
 LatLng = namedtuple('LatLng', ['lat', 'lng'])
 

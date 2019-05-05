@@ -6,9 +6,9 @@ from numbers import Number
 from pyelasticsearch import ElasticSearch
 from datadog.dogstatsd import statsd
 
-***REMOVED***
+from voter_verifier.zip_to_lat_lng import ZipToLatLng
 from verifier_date_utils import years_ago, NullableDate
-***REMOVED***
+from voter_verifier.config import (ES_HOSTS, TIMEOUT, RETRIES, INDEX,
     DOC_TYPE, VERIFIER_MAX_RESULTS, STATSD_HOST, STATSD_PORT,
     DEFAULT_SEARCH_TYPE, SEARCH_TYPE_DISCOVER, SEARCH_TYPE_TOP,
     SEARCH_TYPE_AUTO_VERIFY,CONFIDENCE_INTERVAL_FOR_AUTO_VERIFICATION,
@@ -1074,8 +1074,8 @@ def lookup_by_email(email, max_hits):
 
 def lookup_by_phone(input_phone, max_hits):
   """ find voter records for a given phone number
-***REMOVED***
-      Brigade stores the leadingg "+1"
+       US phone numbers are 10 numeric digits
+      Strips any leading "+1"
   """
   phone = input_phone.replace('+', '')[-10:] if input_phone else ''
   if not phone:

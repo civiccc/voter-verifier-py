@@ -2,8 +2,8 @@ import re
 from logging import getLogger, INFO
 
 from pyelasticsearch import ElasticSearch
-***REMOVED***
-***REMOVED***
+from voter_verifier.matching import es_client, statsd
+from voter_verifier.config import (ES_HOSTS, TIMEOUT, RETRIES, INDEX,
     DOC_TYPE, VERIFIER_MAX_RESULTS)
 
 

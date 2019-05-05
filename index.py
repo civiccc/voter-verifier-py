@@ -4,8 +4,8 @@ import time
 from pyelasticsearch import ElasticSearch
 from progressbar import ProgressBar, Percentage, Bar, ETA, RotatingMarker, Counter
 
-***REMOVED***
-***REMOVED***
+from voter_verifier.config import ES_HOSTS, TIMEOUT, RETRIES, INDEX
+from voter_verifier.indexing import index_voters, ensure_mapping_exists, aliased_index
 
 
 PII_map = {}     # key: voterbase_id,  value: the row
@@ -91,7 +91,7 @@ def input_mapping(row, header_map):
     'party': row[header_map[]]
   }
 
-***REMOVED***
+  data.update(address_mapping_address(row, header_map))
   return data
 
 

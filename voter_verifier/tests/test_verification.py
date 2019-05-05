@@ -11,13 +11,13 @@ from more_itertools import consume
 from nose.tools import eq_
 from pyelasticsearch import ElasticSearch
 from verifier_date_utils import years_ago, NullableDate, day_of_year
-***REMOVED***
+from voter_verifier.config import (ES_HOSTS,
     TIMEOUT, RETRIES, INDEX, SEARCH_TYPE_DISCOVER, SEARCH_TYPE_TOP,
     SEARCH_TYPE_AUTO_VERIFY)
-***REMOVED***
-***REMOVED***
+from voter_verifier.indexing import index_voters, ensure_mapping_exists
+from voter_verifier.matching import (raw_elastic_voters, normalize_dob,
     match_many, match_one)
-***REMOVED***
+from voter_verifier.zip_to_lat_lng import ZipToLatLng
 
 
 ROOT_DIR = path.abspath(path.dirname(__file__))
@@ -216,7 +216,7 @@ class FixturelessVerifierTests(TestCase):
         index=self.index_name)
     eq_(voter['registration_date'], '2016-02-08')
 
-***REMOVED***
+  def test_ts_state_match_one(self):
     best_match = fake_voter(first_name='Lewis',
                             last_name='Clark',
                             st='CA',
@@ -242,7 +242,7 @@ class FixturelessVerifierTests(TestCase):
         index=self.index_name)
     eq_(voter['id'], best_match['id'])
 
-***REMOVED***
+  def test_ts_state_match_many(self):
     best_match = fake_voter(first_name='Gary',
                             last_name='Kramer',
                             st='CA',

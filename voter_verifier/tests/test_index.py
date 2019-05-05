@@ -5,8 +5,8 @@ from logging import INFO
 from django.utils.datetime_safe import date as safe_date
 from pyelasticsearch import ElasticSearch
 
-***REMOVED***
-***REMOVED***
+from voter_verifier.indexing import _document_from_mapping, aliased_index
+from voter_verifier.config import ES_HOSTS, TIMEOUT, RETRIES, INDEX
 
 
 es_client = ElasticSearch(ES_HOSTS, TIMEOUT, RETRIES)
@@ -91,7 +91,7 @@ class IndexAliasTests(TestCase):
   """ Tests ensuring that the alias switchover works as intended """
 
   def test_switchover_when_index_does_not_exist(self):
-***REMOVED***
+    dest_index = 'test_voter_verifier_alias'
 
     try:
       es_client.delete_index(dest_index)
@@ -108,7 +108,7 @@ class IndexAliasTests(TestCase):
     self.assertEqual(results['hits']['total'], 1)
 
   def test_switchover_twice(self):
-***REMOVED***
+    dest_index = 'test_voter_verifier_alias'
 
     try:
       ensure_mapping_exists(dest_index, es_client, force_delete=True)

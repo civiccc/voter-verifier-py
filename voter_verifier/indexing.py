@@ -6,8 +6,8 @@ import time
 from more_itertools import chunked
 from pyelasticsearch import ElasticHttpNotFoundError
 from verifier_date_utils import day_of_year
-***REMOVED***
-***REMOVED***
+from voter_verifier.config import DOC_TYPE
+from voter_verifier.synonyms import FIRST_NAME_SYNONYMS, ADDRESS_SYNONYMS
 
 
 logger = getLogger(__name__)
@@ -198,7 +198,7 @@ def ensure_mapping_exists(index_name, es_client, force_delete=False, should_upda
       # Votizen disabled _source to save space. We might want to do that
       # too if performance is not sufficient or disk space is too
       # out-of-control. They claimed it dropped index size from 240 GB ->
-      # 45 GB. For the TargetSmart sample 50,000 records, enabling this
+      # 45 GB. For the  sample 50,000 records, enabling this
       # results in an increase from 3.5 Kb -> 11.6 Mb.
       #
       # If we disable _source, we will need to find a new key-value store
