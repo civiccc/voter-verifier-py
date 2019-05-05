@@ -46,5 +46,5 @@ prmd combine --meta schema/meta.json schema/voters.json > schema.json
 To create the ruby client :
 
 ```
-heroics-generate VerifierAPI schema.json http://127.0.0.1:10012  > verifier_api.rb
+heroics-generate VerifierAPI schema.json http://127.0.0.1:5000  > verifier_api.rb
 ```
