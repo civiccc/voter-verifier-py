@@ -5,7 +5,7 @@ environment.
 import os
 
 VERIFIER_MAX_RESULTS = 10
-***REMOVED***
+INDEX = os.environ.get('VERIFIER_INDEX_NAME', 'voter_verifier')
 TIMEOUT = 15
 RETRIES = 1
 DOC_TYPE = 'voters'
@@ -13,7 +13,7 @@ ES_HOSTS = os.environ.get('ELASTICSEARCH_HOSTS', 'http://localhost:9200/').split
 STATSD_HOST = os.environ.get('STATSD_HOST', '127.0.0.1')
 STATSD_PORT = 18125
 SENTRY_DSN = os.environ.get('SENTRY_DSN', 'http://username:password@127.0.0.1/id')
-***REMOVED***
+ZIP_TO_LAT_LNG_FILE_NAME = 'voter_verifier/resources/zip_to_lat_lng.csv'
 
 CONFIDENCE_INTERVAL_FOR_AUTO_VERIFICATION = 3
 
