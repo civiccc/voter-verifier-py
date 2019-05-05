@@ -5,7 +5,6 @@ jsonschema==2.4.0
 more_itertools
 flask
 gunicorn
-django==1.11
 nose
 git+git://github.com/niltonvolpato/python-progressbar@32422c1148968336873b693b4016e709cd046a05#egg=progressbar
 git+git://github.com/civiccc/verifier_date_utils@master#egg=verifier_date_utils
