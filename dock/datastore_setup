@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source /src/script/helpers.bash
+source /src/bin/helpers.bash
 
 ELASTICSEARCH_HOST=docker-host wait-for-elasticsearch

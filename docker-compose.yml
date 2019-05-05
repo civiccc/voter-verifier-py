@@ -13,11 +13,10 @@ services:
     environment:
       APP_UID:
       APP_GID:
-      ARCANUS_PASSWORD: ${ARCANUS_PASSWORD_VERIFIER}
       ELASTICSEARCH_HOSTS: http://docker-host:9200/
       FLASK_ENV: 'development'
     ports:
-      - '11012:3000'
+      - '3000:3000'
     volumes:
       - '.:/src'
     working_dir: '/src'
@@ -39,16 +38,15 @@ services:
 
   elasticsearch:
     extends:
-      file: $BASE_COMPOSE
       service: elasticsearch_dev_base
-    image: 'brigade/elasticsearch:1.7-latest'
+    image: 'elasticsearch:1.7-latest'
     command: ['elasticsearch', '--action.write_consistency=one']
 
   elasticsearch_test:
     extends:
       file: $BASE_COMPOSE
       service: elasticsearch_test_base
-    image: 'brigade/elasticsearch:1.7-latest'
+    image: 'elasticsearch:1.7-latest'
     command: ['elasticsearch', '--action.write_consistency=one']
 
 volumes:

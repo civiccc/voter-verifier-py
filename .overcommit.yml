@@ -1,19 +1,10 @@
-# Don't need this for a private repo
-verify_signatures: false
+verify_signatures: true
 
 CommitMsg:
-  GerritChangeId:
-    enabled: true
-
   HardTabs:
     enabled: true
 
 PreCommit:
-  AuthorEmail:
-    enabled: true
-    description: 'Checking author email for Brigade domain'
-***REMOVED***
-
   HardTabs:
     enabled: true
     exclude:

@@ -4,7 +4,7 @@
 # It starts up core backend services and displays instructions for getting
 # started.
 
-source $(dirname $0)/../script/helpers.bash
+source $(dirname $0)/../bin/helpers.bash
 
 section "Downloading latest version of all images..."
 docker-compose pull

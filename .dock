@@ -16,17 +16,6 @@ env_var CI "{CI:-0}"
 env_var APP_UID $(user_id)
 env_var APP_GID $(group_id)
 
-# Configuration for uploading artifacts to Nexus
-env_var NEXUS_GROUP $project
-optional_env_var NEXUS_USER
-optional_env_var NEXUS_PASSWORD
-
-# Allow user to deploy an Docker image tag that has already been pushed
-optional_env_var DEPLOY_TAG
-
-# Used by Jenkins jobs to unlock Arcanus chest during deployment
-optional_env_var ARCANUS_PASSWORD
-
 # Expose Docker Hub credentials if they exist
 if [ -d "$HOME/.docker" ]; then
   volume "$HOME/.docker:/home/app/.docker"

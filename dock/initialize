@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /src/script/helpers.bash
+source /src/bin/helpers.bash
 
 section "Activating virtual environment..."
 cd /src

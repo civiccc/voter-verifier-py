@@ -11,16 +11,15 @@ from setuptools import setup, find_packages
 
 
 setup(
-***REMOVED***
+  name='voter-verifier-py',
   version='1.0',
   description='A system for matching fuzzy contact info to a registered voter',
   long_description=open('README.rst').read(),
   author='Erik Rose',
-***REMOVED***
   packages=find_packages(exclude=['ez_setup']),
   tests_require=['nose'],
   test_suite='nose.collector',
-***REMOVED***
+  url='https://github.com/civiccc/voter-verifier-py',
   include_package_data=True,
   classifiers=[
     'Intended Audience :: Developers',

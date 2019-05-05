@@ -11,7 +11,7 @@ import os
 import traceback
 
 
-***REMOVED***
+from verifier_date_utils import NullableDate
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
@@ -78,12 +78,12 @@ def handle_error(e):
 def home():
   return """
   <form id="test-form" method='POST' action='/match'>
+    <input name='first_name' value='Jane' placeholder='First Name' /><br />
     ***REMOVED***
-    ***REMOVED***
-    ***REMOVED***
-    ***REMOVED***
-    ***REMOVED***
-    ***REMOVED***
+    <input name='dob' value='1984-00-00' placeholder='DOB (yyyy-mm-dd)' /><br />
+    <input name='zip_code' value='12345' placeholder='Zip Code' /><br />
+    <input name='city' value='Anytown' placeholder='City (Euclid)' /><br />
+    <input name='state' value='ST' placeholder='State (e.g. CA)' /><br />
     ***REMOVED***
     <input type='submit' />
   </form>

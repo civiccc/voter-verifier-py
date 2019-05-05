@@ -14,7 +14,6 @@ groupadd --non-unique -g $APP_GID docker
 # Start daemon and wait for it to be ready
 dockerd \
   --storage-driver=overlay \
-***REMOVED***
   --icc=false \
   >/dev/null 2>&1 &
 for i in {1..5}; do
